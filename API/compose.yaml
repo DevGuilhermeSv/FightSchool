@@ -1,0 +1,6 @@
+﻿services:
+  fightschool:
+    image: fightschool
+    build:
+      context: .
+      dockerfile: FightSchool/Dockerfile
