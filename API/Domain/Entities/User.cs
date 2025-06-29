@@ -1,11 +1,9 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace Domain.Entities;
 
-public class User
+public class User : IdentityUser<Guid>
 {
-    public Guid Id { get; set; }
-    public string Name { get; set; }
-    public string Nickname { get; set; }
-    public string PhoneNumber { get; set; }
     private Belt _belt;
     
     public string Belt
@@ -13,8 +11,6 @@ public class User
         get => _belt.ToString();
         set => _belt = Enum.Parse<Belt>(value);
     }
-
-    public DateTime CreatedAt { get; set; }
 }
 
 public enum Belt
@@ -24,6 +20,7 @@ public enum Belt
     Cinza,
     Verde,
     Azul,
+    Roxa,
     Marrom,
     Preta,
     Coral

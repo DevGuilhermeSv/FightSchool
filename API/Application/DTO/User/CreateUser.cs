@@ -1,9 +1,14 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Application.DTO.User;
 
 using FluentValidation;
 
 public class CreateUser : UserDto
 {
+    [Required]
+    [MinLength(6)]
+    public string Password { get; set; }
 }
 
 // Validator class for CreateUser

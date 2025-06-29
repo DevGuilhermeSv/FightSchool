@@ -1,9 +1,7 @@
 using Application.DTO.User;
 using Application.Interfaces;
 using AutoMapper;
-using Domain.Entities;
 using Domain.Interfaces;
-using FluentValidation;
 
 namespace Application.Services
 {
@@ -16,31 +14,6 @@ namespace Application.Services
         {
             _userRepository = userRepository;
             _mapper = mapper;
-        }
-
-        public async Task<bool> Create(CreateUser userDto)
-        {
-            var validate = await new CreateUserValidator().ValidateAsync(userDto);
-            if (!validate.IsValid)
-                throw new ValidationException(validate.Errors);
-                
-            var userEntity = _mapper.Map<User>(userDto);
-            userEntity.Id = Guid.NewGuid();
-            userEntity.CreatedAt = DateTime.UtcNow;
-
-            var existingUser = await _userRepository.FindByNicknameAndPhoneNumber(
-                userDto.Nickname,
-                userDto.PhoneNumber
-            );
-
-            if (existingUser != null)
-            {
-                return false;
-            }
-
-            await _userRepository.AddAsync(userEntity);
-            _userRepository.SaveChanges();
-            return true;
         }
 
         public async Task<List<GetUser>> Search(UserDto userDto)

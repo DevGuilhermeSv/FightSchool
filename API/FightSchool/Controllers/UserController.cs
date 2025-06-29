@@ -17,17 +17,6 @@ public class UserController : ControllerBase
         _userService = userService;
     }
     
-    [HttpPost("create")]
-    public async Task<IActionResult> Create([FromBody]CreateUser userDto)
-    {
-        var success = await _userService.Create(userDto);
-        if (success)
-        {
-            return StatusCode(201,new { id = userDto.Name });
-        }
-        
-        return BadRequest("User already exists or invalid data.");
-    }
     [HttpGet("search")]
     public async Task<IActionResult> Search([FromQuery]UserDto userDto)
     {
