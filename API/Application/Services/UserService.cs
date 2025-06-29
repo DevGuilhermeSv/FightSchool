@@ -22,7 +22,7 @@ namespace Application.Services
 
             query = _userRepository.Filter(query, "PhoneNumber", userDto.PhoneNumber);
 
-            query = _userRepository.Filter(query, "Nickname", userDto.Nickname);
+            query = _userRepository.Filter(query, "Nickname", userDto.UserName);
 
             query = _userRepository.Filter(query, "Belt", userDto.Belt.ToString());
             query = _userRepository.Filter(query, "Name", userDto.Name);

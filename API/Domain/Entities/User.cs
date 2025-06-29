@@ -11,6 +11,8 @@ public class User : IdentityUser<Guid>
         get => _belt.ToString();
         set => _belt = Enum.Parse<Belt>(value);
     }
+
+    public string Name { get; set; }
 }
 
 public enum Belt

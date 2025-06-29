@@ -38,7 +38,9 @@ namespace FightSchool.Controllers
             var user = new User
             {
                 Email = model.Email,
-                UserName = model.Email // Geralmente o email é usado como UserName para Identity
+                UserName = model.UserName, // Geralmente o email é usado como UserName para Identity
+                Name = model.Name,
+                PhoneNumber = model.PhoneNumber
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
