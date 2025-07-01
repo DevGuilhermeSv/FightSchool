@@ -2,12 +2,15 @@ using Application.DTO.Match;
 using Application.Interfaces;
 using Application.Services;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FightSchool.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize] // Este controller agora exige autenticação
+
     public class MatchController : ControllerBase
     {
         private readonly IMatchService _matchService;

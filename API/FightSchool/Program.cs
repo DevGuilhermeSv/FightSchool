@@ -34,7 +34,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserInterface, UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IMatchRepository, MatchRepository>(); 
 builder.Services.AddScoped<IMatchService, MatchService>(); 
 builder.Services.AddScoped<JwtService>();
@@ -116,6 +117,7 @@ if (app.Environment.IsDevelopment())
     app.UseCors("OpenCorsPolicy");
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
