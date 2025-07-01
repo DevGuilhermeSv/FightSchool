@@ -1,19 +1,35 @@
 using Application.DTO.User;
 using Application.Interfaces;
 using AutoMapper;
+using Domain;
+using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace Application.Services
 {
-    public class UserService : IUserInterface
+    public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly UserManager<User>_userManager;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _userManager = userManager;
+        }
+        public async Task CreateUser(CreateUser model)
+        {
+            var user = _mapper.Map<User>(model);
+
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                throw new FightSchoolServiceException(result.Errors.First().Description);
+            }
         }
 
         public async Task<List<GetUser>> Search(UserDto userDto)
@@ -38,6 +54,13 @@ namespace Application.Services
                 var user = _userRepository.GetById(id);
                 return user == null ? null : _mapper.Map<GetUser>(user);
             });
+        }
+
+        public async Task<GetUser?> FindUserByEmail(string email)
+        {
+            var userExists = await _userManager.FindByEmailAsync(email);
+            return userExists == null ? null : _mapper.Map<GetUser>(userExists);
+            
         }
     }
 }
