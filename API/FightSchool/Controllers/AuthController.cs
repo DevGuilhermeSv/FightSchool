@@ -1,8 +1,10 @@
-using Application.DTO;
 using Application.DTO.Auth;
 using Application.DTO.User;
+using Application.Interfaces;
 using Application.Services;
+using Domain;
 using Domain.Entities;
+using Domain.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,75 +14,75 @@ namespace FightSchool.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
+        private readonly IUserService _userService;
         private readonly SignInManager<User> _signInManager;
         private readonly JwtService _jwtService;
+        private readonly IAuthService _authService;
 
         public AuthController(
-            UserManager<User> userManager,
+            IUserService userManager,
             SignInManager<User> signInManager,
-            JwtService jwtService)
+            JwtService jwtService,
+            IAuthService authService)
         {
-            _userManager = userManager;
+            _userService = userManager;
             _signInManager = signInManager;
             _jwtService = jwtService;
+            _authService = authService;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] CreateUser model)
         {
-            var userExists = await _userManager.FindByEmailAsync(model.Email);
+            var userExists = await _userService.FindUserByEmail(model.Email);
             if (userExists != null)
             {
                 return BadRequest(new AuthResponse() { IsAuthSuccessful = false, ErrorMessage = "Usuário já existe!" });
             }
 
-            var user = new User
+            try
             {
-                Email = model.Email,
-                UserName = model.UserName, // Geralmente o email é usado como UserName para Identity
-                Name = model.Name,
-                PhoneNumber = model.PhoneNumber
-            };
-
-            var result = await _userManager.CreateAsync(user, model.Password);
-
-            if (!result.Succeeded)
+                
+                await _userService.CreateUser(model);
+            }
+            catch (FightSchoolServiceException e)
             {
-                var errors = result.Errors.Select(e => e.Description);
-                return BadRequest(new AuthResponse { IsAuthSuccessful = false, ErrorMessage = string.Join(", ", errors) });
+                Console.WriteLine(e);
+                return BadRequest(new AuthResponse { IsAuthSuccessful = false, ErrorMessage = e.Message });
+
             }
 
-            // Opcional: Atribuir um papel padrão ao novo usuário
-            // await _userManager.AddToRoleAsync(user, "User");
-
-            return StatusCode(201, new AuthResponse { IsAuthSuccessful = true, Email = user.Email });
+            return StatusCode(201, new AuthResponse { IsAuthSuccessful = true, Email = model.Email });
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] Login model)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
+            try
             {
-                return Unauthorized(new AuthResponse { IsAuthSuccessful = false, ErrorMessage = "Credenciais inválidas." });
+                var result = await _authService.Login(model.Email, model.Password);
+                return Ok(result);
+
             }
-
-            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
-            if (!result.Succeeded)
+            catch (FightSchoolNotFoundException e)
             {
-                return Unauthorized(new AuthResponse { IsAuthSuccessful = false, ErrorMessage = "Credenciais inválidas." });
+                Console.WriteLine(e);
+                return NotFound(new AuthResponse()
+                {
+                    IsAuthSuccessful = false,
+                    ErrorMessage = e.Message
+                });
             }
-
-            var token = await _jwtService.GenerateToken(user);
-
-            return Ok(new AuthResponse
+            catch (FightSchoolServiceException e)
             {
-                IsAuthSuccessful = true,
-                Token = token,
-                UserId = user.Id,
-                Email = user.Email
-            });
+                Console.WriteLine(e);
+                return BadRequest(new AuthResponse()
+                {
+                    IsAuthSuccessful = false,
+                    ErrorMessage = e.Message
+                });
+            }
         }
     }
+
 }
