@@ -48,9 +48,9 @@ export default function App() {
   }, []);
 
   return (
-    <div className="p-4 grid gap-6">
-      <h1 className="text-2xl font-bold">
-        Gerenciador de Lutas da QUINTA FIRE!
+    <div className="p-4 grid gap-6 bg-black text-white min-h-screen">
+      <h1 className="text-2xl font-bold text-yellow-300 text-center">
+        QUINTA FIRE!
       </h1>
       {logged ? (
         <FightPage

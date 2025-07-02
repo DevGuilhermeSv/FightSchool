@@ -6,3 +6,8 @@ riderModule.iml
 node_modules/
 .vscode/
 appsettings.json
+API/.idea/.idea.FightSchool/.idea/.gitignore
+API/.idea/.idea.FightSchool/.idea/.name
+API/.idea/.idea.FightSchool/.idea/indexLayout.xml
+API/.idea/.idea.FightSchool/.idea/vcs.xml
+API/FightSchool/app_database.db

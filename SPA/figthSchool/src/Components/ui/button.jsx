@@ -3,7 +3,7 @@ import React from "react";
 export function Button({ className, ...props }) {
   return (
     <button
-      className="rounded-xl bg-blue-600 text-white px-4 py-2 font-semibold hover:bg-blue-700 transition"
+      className={`rounded-xl bg-amarelo hover:bg-amarelo-100 text-amarelo-text font-semibold transition ${className}`}
       {...props}
     >
       {props.children}
