@@ -7,6 +7,10 @@ const AuthRepository = {
     const res = await axios.post(`${API_BASE}/Auth/login`, { email, password });
     return res.data;
   },
+  createUser: async (newUser) => {
+    const res = await axios.post(`${API_BASE}/Auth/register`, newUser);
+    return res.data;
+  },
   // Add more auth-related methods here as needed
 };
 

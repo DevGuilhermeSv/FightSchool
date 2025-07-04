@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-
 import NewProfile from "@/components/NewProfile";
 import LoginPage from "./pages/login";
 import FightPage from "./pages/fightPage";
@@ -20,27 +17,14 @@ export default function App() {
 
   const [users, setUsers] = useState([]);
 
-  const [newUser, setNewUser] = useState({
-    name: "",
-    nickname: "",
-    phoneNumber: "",
-    belt: 0,
-  });
-
   const fetchUsers = async () => {
     const res = await axios.get(`${API_BASE}/User/search`);
     setUsers(res.data);
   };
 
-  const createUser = async () => {
-    await axios.post(`${API_BASE}/User/create`, newUser);
-    setNewUser({ name: "", nickname: "", phoneNumber: "", belt: 0 });
-    await fetchUsers();
-  };
-
   const getUserNameById = (id) => {
     const user = users.find((u) => u.id === id);
-    return user ? `${user.name} (${user.nickname})` : id;
+    return user ? `${user.name} (${user.userName})` : id;
   };
 
   useEffect(() => {
@@ -65,12 +49,11 @@ export default function App() {
         />
       </div>
 
-      {/* <div className="w-4/5 flex flex-col items-center justify-center"> */}
       {logged ? (
         <FightPage users={users} FightStatusMap={FightStatusMap} />
       ) : (
         <div className="flex md:flex-row flex-col justify-center items-center gap-4 p-4 w-full">
-          <NewProfile className="w-3/4" createUser={createUser} />
+          <NewProfile className="w-3/4" />
           <div>
             <h2>Já possui um perfil? Faça login abaixo:</h2>
             <LoginPage setLogged={setLogged} />

@@ -9,14 +9,36 @@ import {
 } from "@/components/ui/select";
 import { Select } from "./ui/select";
 import BaseComponent from "./ui/BaseComponent";
+import AuthRepository from "../repositories/AuthRepository";
 
-function NewProfile({ createUser, className }) {
+function NewProfile({ className }) {
+  const handleCreateUser = async () => {
+    const createdUser = await AuthRepository.createUser(newUser);
+    if (createdUser.isAuthSuccessful) {
+      alert("Perfil criado com sucesso!");
+    } else {
+      alert("Erro ao criar perfil.");
+    }
+
+    setNewUser({
+      email: "",
+      password: "",
+      name: "",
+      userName: "",
+      phoneNumber: "",
+      belt: 0,
+    });
+  };
+
   const [newUser, setNewUser] = useState({
+    email: "",
+    password: "",
     name: "",
-    nickname: "",
+    userName: "",
     phoneNumber: "",
     belt: 0,
   });
+
   const Belt = Object.freeze({
     Branca: 0,
     Amarela: 1,
@@ -39,8 +61,8 @@ function NewProfile({ createUser, className }) {
       />
       <Input
         placeholder="Apelido"
-        value={newUser.nickname}
-        onChange={(e) => setNewUser({ ...newUser, nickname: e.target.value })}
+        value={newUser.userName}
+        onChange={(e) => setNewUser({ ...newUser, userName: e.target.value })}
       />
       <Input
         placeholder="Email"
@@ -54,6 +76,12 @@ function NewProfile({ createUser, className }) {
           setNewUser({ ...newUser, phoneNumber: e.target.value })
         }
       />
+      <Input
+        placeholder="Password"
+        type="password"
+        value={newUser.password}
+        onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+      />
       <Select
         value={newUser.belt}
         onChange={(e) =>
@@ -66,7 +94,7 @@ function NewProfile({ createUser, className }) {
           </SelectItem>
         ))}
       </Select>
-      <Button onClick={() => createUser(newUser)}>Criar Perfil</Button>
+      <Button onClick={handleCreateUser}>Criar Perfil</Button>
     </BaseComponent>
   );
 }
