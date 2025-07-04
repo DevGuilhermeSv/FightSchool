@@ -11,11 +11,10 @@ namespace Infrastructure.Repository
         {
         }
 
-        public async Task<IEnumerable<Match>> GetMatchesByUserIdAsync(Guid userId)
+        public IQueryable<Match> GetMatchesByUserIdAsync(Guid userId)
         {
-            return await DbSet
-                .Where(m => m.FighterOneId == userId || m.FighterTwoId == userId)
-                .ToListAsync();
+            return  DbSet
+                .Where(m => m.FighterOneId == userId || m.FighterTwoId == userId);
         }
     }
 }

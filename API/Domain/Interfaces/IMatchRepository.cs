@@ -4,7 +4,6 @@ namespace Domain.Interfaces
 {
     public interface IMatchRepository : IRepository<Match>
     {
-        // Métodos específicos para Match podem ser adicionados aqui
-        Task<IEnumerable<Match>> GetMatchesByUserIdAsync(Guid userId);
+        IQueryable<Match> GetMatchesByUserIdAsync(Guid userId);
     }
 }
