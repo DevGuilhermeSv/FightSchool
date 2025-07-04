@@ -10,16 +10,27 @@ import {
 import { Select } from "./ui/select";
 import BaseComponent from "./ui/BaseComponent";
 
-function NewProfile({ createUser }) {
+function NewProfile({ createUser, className }) {
   const [newUser, setNewUser] = useState({
     name: "",
     nickname: "",
     phoneNumber: "",
     belt: 0,
   });
+  const Belt = Object.freeze({
+    Branca: 0,
+    Amarela: 1,
+    Cinza: 2,
+    Verde: 3,
+    Azul: 4,
+    Roxa: 5,
+    Marrom: 6,
+    Preta: 7,
+    Coral: 8,
+  });
 
   return (
-    <BaseComponent>
+    <BaseComponent className={className}>
       <h2 className="text-xl font-semibold">Criar novo perfil</h2>
       <Input
         placeholder="Nome"
@@ -32,6 +43,11 @@ function NewProfile({ createUser }) {
         onChange={(e) => setNewUser({ ...newUser, nickname: e.target.value })}
       />
       <Input
+        placeholder="Email"
+        value={newUser.email}
+        onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+      />
+      <Input
         placeholder="Telefone"
         value={newUser.phoneNumber}
         onChange={(e) =>
@@ -39,16 +55,14 @@ function NewProfile({ createUser }) {
         }
       />
       <Select
+        value={newUser.belt}
         onChange={(e) =>
-          setNewUser({ ...newUser, belt: parseInt(e.target.value) })
+          setNewUser({ ...newUser, belt: parseInt(e.target.value, 10) })
         }
       >
-        {/* <SelectTrigger>
-            <SelectValue placeholder="Faixa" />
-          </SelectTrigger> */}
-        {[...Array(8).keys()].map((i) => (
-          <SelectItem key={i} value={String(i)}>
-            Faixa {i}
+        {Object.entries(Belt).map(([name, value]) => (
+          <SelectItem key={value} value={String(value)}>
+            Faixa {name}
           </SelectItem>
         ))}
       </Select>

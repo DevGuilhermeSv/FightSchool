@@ -2,18 +2,12 @@ import BaseComponent from "../Components/ui/BaseComponent";
 import { Button } from "../Components/ui/button";
 import { Input } from "../Components/ui/input";
 
-function LoginPage({ setLogged }) {
+function LoginPage({ setLogged, className }) {
   return (
-    <BaseComponent>
+    <BaseComponent className={className}>
       <form>
-        <div>
-          <label>Email:</label>
-          <Input type="email" />
-        </div>
-        <div>
-          <label>Password:</label>
-          <Input type="password" />
-        </div>
+        <Input placeholder="Email" type="email" />
+        <Input placeholder="Senha" type="password" />
         <Button onClick={() => setLogged(true)} type="submit">
           Login
         </Button>

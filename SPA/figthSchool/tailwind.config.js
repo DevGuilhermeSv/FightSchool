@@ -3,6 +3,10 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        loveLight: ["'Love Light'", "sans-serif"],
+        manufacturingConsent: ["'Manufacturing Consent'", "sans-serif"],
+      },
       colors: {
         preto: {
           DEFAULT: "#121212",
