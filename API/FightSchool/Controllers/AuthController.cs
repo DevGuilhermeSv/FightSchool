@@ -56,6 +56,8 @@ namespace FightSchool.Controllers
         }
 
         [HttpPost("login")]
+        [ProducesResponseType<AuthResponse>(StatusCodes.Status200OK)]
+        [ProducesResponseType<AuthResponse>(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Login([FromBody] Login model)
         {
             try
