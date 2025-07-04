@@ -3,6 +3,7 @@ using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services
 {
@@ -18,24 +19,29 @@ namespace Application.Services
         }
 
 
-        public Task<List<Match>> SearchMatchesAsync(SearchMatch searchMatch)
+        public async Task<List<MatchResponse>> SearchMatchesAsync(SearchMatch searchMatch)
         {
             var query = _matchRepository.GetAll();
                 
                 query = _matchRepository.Filter(query, "FightStatus", searchMatch.FightStatus.ToString());
                 query = _matchRepository.Filter(query, "Date", searchMatch.Date);
+
+            var result =_mapper.ProjectTo<MatchResponse>(query);
                 
-            return Task.FromResult(query.ToList());
+            return await result.ToListAsync();
         }
 
-        public Match? GetMatchByIdAsync(Guid id)
+        public MatchResponse? GetMatchByIdAsync(Guid id)
         {
-            return _matchRepository.GetById(id);
+            var match = _matchRepository.GetById(id);
+            
+            return match == null ? null : _mapper.Map<MatchResponse>(match);
         }
 
-        public async Task<IEnumerable<Match>> GetMatchesByUserIdAsync(Guid userId)
+        public async Task<IEnumerable<MatchResponse>> GetMatchesByUserIdAsync(Guid userId)
         {
-            return await _matchRepository.GetMatchesByUserIdAsync(userId);
+            var match =  _matchRepository.GetMatchesByUserIdAsync(userId);
+            return await _mapper.ProjectTo<MatchResponse>(match).ToListAsync();
         }
 
         public async Task<Guid> CreateMatchAsync(CreateMatch createMatch)

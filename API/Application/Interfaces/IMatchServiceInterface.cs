@@ -6,9 +6,9 @@ namespace Application.Interfaces
 {
     public interface IMatchService
     {
-        Task<List<Match>> SearchMatchesAsync(SearchMatch searchMatch);
-        Match? GetMatchByIdAsync(Guid id);
-        Task<IEnumerable<Match>> GetMatchesByUserIdAsync(Guid userId);
+        Task<List<MatchResponse>> SearchMatchesAsync(SearchMatch searchMatch);
+        MatchResponse? GetMatchByIdAsync(Guid id);
+        Task<IEnumerable<MatchResponse>> GetMatchesByUserIdAsync(Guid userId);
         Task<Guid> CreateMatchAsync(CreateMatch match);
         Task UpdateMatchAsync(UpdateMatch match);
     }

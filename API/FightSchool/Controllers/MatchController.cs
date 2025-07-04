@@ -21,12 +21,11 @@ namespace FightSchool.Controllers
         }
 
         // Endpoint para buscar uma lista de matches com base em critérios de busca
-        [HttpGet("search")]
+        [HttpGet]
+        [ProducesResponseType<List<MatchResponse>>(StatusCodes.Status200OK)]
+
         public async Task<IActionResult> SearchMatches([FromQuery] SearchMatch searchCriteria)
         {
-            if (searchCriteria == null)
-                return BadRequest("Os critérios de busca não foram fornecidos.");
-
             var matches = await _matchService.SearchMatchesAsync(searchCriteria);
 
             if (matches == null || matches.Count == 0)
@@ -37,6 +36,7 @@ namespace FightSchool.Controllers
 
         // Endpoint para recuperar um match pelo ID
         [HttpGet("{id:guid}")]
+        [ProducesResponseType<MatchResponse>(StatusCodes.Status200OK)]
         public IActionResult GetMatchById(Guid id)
         {
             var match = _matchService.GetMatchByIdAsync(id);
