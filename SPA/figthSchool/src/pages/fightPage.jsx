@@ -1,19 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
-import { Input } from "@/components/ui/input";
-import {
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  SelectValue,
-} from "@/components/ui/select";
-import { Select } from "../Components/ui/select";
+import MatchRepository from "../repositories/MatchRepository";
 import ListFights from "../Components/listFights";
 import NewFight from "../Components/newFight";
-const API_BASE = "http://localhost:18157/api";
 
-function FightPage({ users }) {
+function FightPage() {
   const [newMatchIsOpen, setNewMatchIsOpen] = useState(false);
   // const [newMatch, setNewMatch] = useState({
   //   fighterOneId: "",
@@ -30,8 +21,8 @@ function FightPage({ users }) {
   // };
 
   const fetchMatches = async () => {
-    const res = await axios.get(`${API_BASE}/Match/search`);
-    setMatches(res.data);
+    const res = await MatchRepository.getAllMatches();
+    setMatches(res);
   };
 
   useEffect(() => {
@@ -47,12 +38,8 @@ function FightPage({ users }) {
         <NewFight />
       ) : (
         <div>
-          <h2> Lutas Agendas para a QUINTA-FIRE!</h2>
-          <ListFights
-            matches={matches}
-            // getUserNameById={getUserNameById}
-            // FightStatusMap={FightStatusMap}
-          />
+          <h2>Confira as Lutas da Semana</h2>
+          <ListFights matches={matches} />
         </div>
       )}
     </div>
