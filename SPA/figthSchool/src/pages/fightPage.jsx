@@ -29,7 +29,7 @@ function getYears(matches) {
   return ["", ...years];
 }
 
-function FightPage() {
+function FightPage({ setLogged }) {
   const [newMatchIsOpen, setNewMatchIsOpen] = useState(false);
   const [matches, setMatches] = useState([]);
   const [monthFilter, setMonthFilter] = useState("");
@@ -73,6 +73,7 @@ function FightPage() {
       <div className="flex justify-between items-center mb-4 min-w-screen border-2 border-yellow-500 p-4">
         <Button onClick={() => setNewMatchIsOpen(true)}>Nova Luta</Button>
         <Button>Ver resultados anteriores</Button>
+        <Button onClick={() => setLogged(false)}>Sair</Button>
       </div>
       {newMatchIsOpen ? (
         <NewFight setNewMatchIsOpen={setNewMatchIsOpen} />

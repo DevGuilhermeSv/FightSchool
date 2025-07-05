@@ -16,7 +16,7 @@ function AppRoutes({ setLogged, logged }) {
 
   return (
     <Routes>
-      <Route path="/fightPage" element={<FightPage />} />
+      <Route path="/fightPage" element={<FightPage setLogged={setLogged} />} />
       <Route path="/login" element={<LoginPage setLogged={setLogged} />} />
     </Routes>
   );
