@@ -1,9 +1,14 @@
 // src/components/ui/select.tsx
-import React, { useState } from "react";
+import React from "react";
 export function Select(props) {
-  const { children } = props;
+  const { children, onChange, value, ...rest } = props;
   return (
-    <select className="w-full rounded-lg border px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <select
+      className="w-full rounded-lg border px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      onChange={(e) => onChange && onChange(e.target.value)}
+      value={value}
+      {...rest}
+    >
       {children}
     </select>
   );
@@ -29,13 +34,10 @@ export function SelectContent(props) {
 
 export function SelectItem(props) {
   const { value, children } = props;
-  const [selected, setSelected] = useState(false);
   return (
     <option
-      onClick={() => setSelected(true)}
-      className={`cursor-pointer px-4 py-2 hover:bg-gray-100 ${
-        selected ? "bg-gray-200" : ""
-      }`}
+      value={value}
+      className="cursor-pointer px-4 py-2 hover:bg-gray-100"
     >
       {children}
     </option>

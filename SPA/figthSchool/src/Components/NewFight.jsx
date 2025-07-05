@@ -10,7 +10,8 @@ import {
 import { Select } from "./ui/select";
 import ListFights from "./listFights";
 import BaseComponent from "./ui/BaseComponent";
-import axios from "axios";
+import UserRepository from "../repositories/UserRepository";
+import MatchRepository from "../repositories/MatchRepository";
 
 const FightStatusMap = {
   0: "Agendado",
@@ -18,28 +19,31 @@ const FightStatusMap = {
   2: "Finalizado",
 };
 
-function NewFight() {
+function NewFight({ setNewMatchIsOpen }) {
   const [newMatch, setNewMatch] = useState({});
 
   const [users, setUsers] = useState([]);
 
-  const API_BASE = "http://localhost:18157/api";
-
   const fetchUsers = async () => {
-    const res = await axios.get(`${API_BASE}/User/search`);
-    setUsers(res.data);
+    const res = await UserRepository.getAllUsers();
+    setUsers(res);
   };
 
   useEffect(() => {
     fetchUsers();
   }, []);
+
   const createMatch = async () => {
     try {
-      await axios.post(`${API_BASE}/Match`, newMatch);
+      console.log(newMatch);
+      await MatchRepository.createMatch(newMatch);
+      alert("Luta criada com sucesso!");
+      setNewMatchIsOpen(false);
       setNewMatch({});
       await fetchUsers();
     } catch (error) {
       console.error("Erro ao criar luta:", error);
+      alert("Erro ao criar luta:" + error.message);
     }
   };
 
@@ -47,18 +51,24 @@ function NewFight() {
     <BaseComponent>
       <h2 className="text-xl font-semibold">Criar nova luta</h2>
 
-      <Select onChange={(v) => setNewMatch({ ...newMatch, fighterOneId: v })}>
+      <Select
+        value={newMatch.fighterOneId || ""}
+        onChange={(v) => setNewMatch({ ...newMatch, fighterOneId: v })}
+      >
         {users.map((u) => (
           <SelectItem key={u.id} value={u.id}>
-            {u.name} ({u.nickname})
+            {u.name} ({u.userName})
           </SelectItem>
         ))}
       </Select>
 
-      <Select onChange={(v) => setNewMatch({ ...newMatch, fighterTwoId: v })}>
+      <Select
+        value={newMatch.fighterTwoId || ""}
+        onChange={(v) => setNewMatch({ ...newMatch, fighterTwoId: v })}
+      >
         {users.map((u) => (
           <SelectItem key={u.id} value={u.id}>
-            {u.name} ({u.nickname})
+            {u.name} ({u.userName})
           </SelectItem>
         ))}
       </Select>
