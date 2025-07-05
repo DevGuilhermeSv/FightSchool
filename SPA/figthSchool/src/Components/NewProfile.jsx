@@ -11,6 +11,18 @@ import { Select } from "./ui/select";
 import BaseComponent from "./ui/BaseComponent";
 import AuthRepository from "../repositories/AuthRepository";
 
+export const Belt = Object.freeze({
+  Branca: 0,
+  Amarela: 1,
+  Cinza: 2,
+  Verde: 3,
+  Azul: 4,
+  Roxa: 5,
+  Marrom: 6,
+  Preta: 7,
+  Coral: 8,
+});
+
 function NewProfile({ className }) {
   const handleCreateUser = async () => {
     const createdUser = await AuthRepository.createUser(newUser);
@@ -37,18 +49,6 @@ function NewProfile({ className }) {
     userName: "",
     phoneNumber: "",
     belt: 0,
-  });
-
-  const Belt = Object.freeze({
-    Branca: 0,
-    Amarela: 1,
-    Cinza: 2,
-    Verde: 3,
-    Azul: 4,
-    Roxa: 5,
-    Marrom: 6,
-    Preta: 7,
-    Coral: 8,
   });
 
   return (
