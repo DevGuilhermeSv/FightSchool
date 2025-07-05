@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import AuthRepository from "../repositories/AuthRepository";
-import BaseComponent from "../Components/ui/BaseComponent";
-import { Button } from "../Components/ui/button";
-import { Input } from "../Components/ui/input";
+import BaseComponent from "./ui/BaseComponent";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 const API_BASE = "http://localhost:18157/api";
 
-function LoginPage({ setLogged, className }) {
+function Login({ setLogged, className }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -49,4 +49,4 @@ function LoginPage({ setLogged, className }) {
   );
 }
 
-export default LoginPage;
+export default Login;
