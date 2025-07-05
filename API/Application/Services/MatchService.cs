@@ -23,8 +23,9 @@ namespace Application.Services
         {
             var query = _matchRepository.GetAll();
                 
-                query = _matchRepository.Filter(query, "FightStatus", searchMatch.FightStatus.ToString());
-                query = _matchRepository.Filter(query, "Date", searchMatch.Date);
+                query = _matchRepository.Filter(query, "Status", searchMatch.FightStatus.ToString());
+                query = _matchRepository.Filter(query, "_minDate", searchMatch._minDate);
+                query = _matchRepository.Filter(query, "_maxDate", searchMatch._maxDate);
 
             var result =_mapper.ProjectTo<MatchResponse>(query);
                 

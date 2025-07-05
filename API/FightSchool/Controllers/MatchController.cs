@@ -28,9 +28,6 @@ namespace FightSchool.Controllers
         {
             var matches = await _matchService.SearchMatchesAsync(searchCriteria);
 
-            if (matches == null || matches.Count == 0)
-                return NotFound("Nenhum match encontrado com os critérios fornecidos.");
-
             return Ok(matches);
         }
 
