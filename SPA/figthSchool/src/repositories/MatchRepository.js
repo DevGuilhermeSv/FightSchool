@@ -1,8 +1,12 @@
 import api from "./api";
 
 const MatchRepository = {
-  getAllMatches: async () => {
-    const response = await api.get("/Match");
+  getAllMatches: async ({ fightStatus, minDate, maxDate } = {}) => {
+    const params = {};
+    if (fightStatus !== undefined && fightStatus !== "") params.fightStatus = fightStatus;
+    if (minDate) params._minDate = minDate;
+    if (maxDate) params._maxDate = maxDate;
+    const response = await api.get("/Match", { params });
     return response.data;
   },
   getMatchById: async (id) => {
