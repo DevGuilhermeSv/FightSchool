@@ -17,4 +17,9 @@ public class UserRankingRepository : BaseRepository<UserRanking>,IUserRankingRep
             .Include(ur => ur.User)
             .Where(ur => ur.User.Belt == belt.ToString());
     }
+
+    public Task<UserRanking?> GetByUserId(Guid userId)
+    {
+        return DbSet.FirstOrDefaultAsync(ur => ur.UserId == userId);
+    }
 }

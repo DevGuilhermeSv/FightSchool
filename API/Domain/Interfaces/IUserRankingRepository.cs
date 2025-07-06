@@ -5,4 +5,5 @@ namespace Domain.Interfaces;
 public interface IUserRankingRepository : IRepository<UserRanking>
 {
     IQueryable<UserRanking> GetUserRankingsByBelt(Belt belt);
+    Task<UserRanking?> GetByUserId(Guid userId);
 }

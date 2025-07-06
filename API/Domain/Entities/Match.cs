@@ -26,11 +26,13 @@ public class Match
         get => _status.ToString();
         set => _status = Enum.Parse<FightStatus>(value);
     }
+
+    public bool WasProcessed { get; set; } = false;
 }
 
 public enum FightStatus
 {
     Pendente,
-    EmAndamento,
-    Concluido
+    Concluido,
+    Cancelado
 }

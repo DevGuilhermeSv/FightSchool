@@ -1,7 +1,9 @@
 ﻿using Application.DTO.UserRanking;
 using Application.Interfaces;
 using AutoMapper;
+using Domain;
 using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,5 +39,39 @@ public class UserRankingService : IUserRankingService
             .ThenBy(r => r.Defenses);
         var result = _mapper.ProjectTo<UserRankingResult>(rankings);
         return await result.ToListAsync();
+    }
+
+    public async Task UpdateScore(Match match)
+    {
+        if (match.WasProcessed) throw new FightSchoolServiceException("Luta ja contabilizada");
+      
+        var task1 = _userRankingRepository.GetByUserId(match.FighterOneId);
+        var task2 = _userRankingRepository.GetByUserId(match.FighterTwoId);
+        var userRankings = await Task.WhenAll(task1, task2);
+
+        if (userRankings.Any(x => x == null))
+        {
+            throw new FightSchoolNotFoundException("Lutador não encontrado");
+        }
+        var userRanking1 = userRankings.FirstOrDefault();
+        var userRanking2 = userRankings.Skip(1).FirstOrDefault();
+        
+        if (match.FighterOneScore > match.FighterTwoScore)
+        {
+            userRanking1.Victories++;
+            userRanking2.Defenses++;
+        }
+        else
+        {
+            userRanking2.Victories++;
+            userRanking1.Defenses++;
+        }
+
+        userRanking1.Points += match.FighterOneScore;
+        userRanking2.Points += match.FighterTwoScore;
+
+        _userRankingRepository.Update(userRanking1);
+        _userRankingRepository.Update(userRanking2);
+        _userRankingRepository.SaveChanges();
     }
 }

@@ -34,10 +34,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserRankingRepository, UserRankingRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IMatchRepository, MatchRepository>(); 
 builder.Services.AddScoped<IMatchService, MatchService>(); 
+builder.Services.AddScoped<IUserRankingService, UserRankingService>();
+
 builder.Services.AddScoped<JwtService>();
 
 
