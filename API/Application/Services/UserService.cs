@@ -12,14 +12,18 @@ namespace Application.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        private readonly UserManager<User>_userManager;
+        private readonly UserManager<User> _userManager;
+        private readonly IUserRankingRepository _userRankingRepository;
 
-        public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager)
+        public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager,
+            IUserRankingRepository userRankingRepository)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userManager = userManager;
+            _userRankingRepository = userRankingRepository;
         }
+
         public async Task CreateUser(CreateUser model)
         {
             var user = _mapper.Map<User>(model);
@@ -30,6 +34,22 @@ namespace Application.Services
             {
                 throw new FightSchoolServiceException(result.Errors.First().Description);
             }
+
+            try
+            {
+                var userRanking = new UserRanking(user.Id, 0, 0, 0);
+                await _userRankingRepository.AddAsync(userRanking);
+                _userRankingRepository.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Falha ao registrar usuário no Ranking. Revertendo ações...");
+                await _userManager.DeleteAsync(user);
+                throw;
+            }
+           
+        
+            
         }
 
         public async Task<List<GetUser>> Search(UserDto userDto)
@@ -49,18 +69,15 @@ namespace Application.Services
 
         public async Task<GetUser?> GetById(Guid id)
         {
-            return await Task.Run(() =>
-            {
-                var user = _userRepository.GetById(id);
-                return user == null ? null : _mapper.Map<GetUser>(user);
-            });
+            var user = await _userManager.FindByIdAsync(id.ToString());
+
+            return user != null ? _mapper.Map<GetUser>(user) : null;
         }
 
         public async Task<GetUser?> FindUserByEmail(string email)
         {
             var userExists = await _userManager.FindByEmailAsync(email);
             return userExists == null ? null : _mapper.Map<GetUser>(userExists);
-            
         }
     }
 }
