@@ -12,6 +12,8 @@ namespace Infrastructure.DbContext
         }
         
         public DbSet<Match> Matches { get; set; }
+        public DbSet<UserRanking> UserRankings { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
