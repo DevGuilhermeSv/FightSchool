@@ -5,7 +5,8 @@ namespace Application.Interfaces;
 
 public interface IUserRankingService
 {
-    Task<IEnumerable<UserRankingResult>> GetRankingsAsync(string? belt = null);
+    Task<IEnumerable<UserRankingResponse>> GetRankingsAsync(string? belt = null);
     Task UpdateScore(Match match);
+    Task<UserRankingResponse> Create(Guid userId);
 
 }

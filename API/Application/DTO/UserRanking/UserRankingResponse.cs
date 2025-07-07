@@ -2,7 +2,7 @@
 
 namespace Application.DTO.UserRanking;
 
-public class UserRankingResult
+public class UserRankingResponse
 {
     public Guid Id { get; set; } = new Guid();
     public GetUser User { get; set; }

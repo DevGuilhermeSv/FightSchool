@@ -8,6 +8,6 @@ public class UserRankingProfile : Profile
 {
    public UserRankingProfile()
    {
-       CreateMap<UserRanking, UserRankingResult>();
+       CreateMap<UserRanking, UserRankingResponse>();
    }
 }
