@@ -25,7 +25,7 @@ public class UserRankingsController : ControllerBase
     /// <param name="belt">Optional. The belt to filter by (e.g., "Branca", "Preta").</param>
     /// <returns>A list of UserRanking objects.</returns>
     [HttpGet]
-    [ProducesResponseType<UserRankingResult>(statusCode: 200)]
+    [ProducesResponseType<List<UserRankingResponse>>(statusCode: 200)]
     public async Task<IActionResult> GetUserRankings([FromQuery] string? belt = null)
     {
         var rankings = await _userRankingService.GetRankingsAsync(belt);
