@@ -5,7 +5,7 @@ export function Select(props) {
   const { children, onChange, value, ...rest } = props;
   return (
     <Selectflow
-      className="w-full rounded-lg border px-3 py-2 shadow-xs focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+      className="w-full rounded-lg shadow-xs focus:outline-hidden focus:ring-2 focus:ring-blue-500"
       onChange={(e) => onChange && onChange(e.target.value)}
       value={value}
       {...rest}

@@ -52,8 +52,10 @@ function NewProfile({ className }) {
   });
 
   return (
-    <BaseComponent className={className}>
-      <h2 className="text-xl font-semibold">Criar novo perfil</h2>
+    <BaseComponent className={`md:w-2/3 ${className}`}>
+      <h2 className="font-bebas-neue text-center text-preto-text text-2xl md:text-4xl">
+        Criar novo perfil
+      </h2>
       <Input
         placeholder="Nome"
         value={newUser.name}
@@ -84,9 +86,9 @@ function NewProfile({ className }) {
       />
       <Select
         value={newUser.belt}
-        onChange={(e) =>
-          setNewUser({ ...newUser, belt: parseInt(e.target.value, 10) })
-        }
+        onChange={(e) => {
+          setNewUser({ ...newUser, belt: parseInt(e, 10) });
+        }}
       >
         {Object.entries(Belt).map(([name, value]) => (
           <SelectItem key={value} value={String(value)}>
