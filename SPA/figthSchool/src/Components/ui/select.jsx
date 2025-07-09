@@ -1,16 +1,17 @@
 // src/components/ui/select.tsx
 import React from "react";
+import { Select as Selectflow } from "flowbite-react";
 export function Select(props) {
   const { children, onChange, value, ...rest } = props;
   return (
-    <select
+    <Selectflow
       className="w-full rounded-lg border px-3 py-2 shadow-xs focus:outline-hidden focus:ring-2 focus:ring-blue-500"
       onChange={(e) => onChange && onChange(e.target.value)}
       value={value}
       {...rest}
     >
       {children}
-    </select>
+    </Selectflow>
   );
 }
 export function SelectTrigger(props) {
@@ -29,7 +30,9 @@ export function SelectValue(props) {
 
 export function SelectContent(props) {
   const { children } = props;
-  return <div className="mt-2 border rounded-sm shadow-sm bg-white">{children}</div>;
+  return (
+    <div className="mt-2 border rounded-sm shadow-sm bg-white">{children}</div>
+  );
 }
 
 export function SelectItem(props) {

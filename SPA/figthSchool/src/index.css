@@ -1,12 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Love+Light&family=Manufacturing+Consent&display=swap')
+@import url("https://fonts.googleapis.com/css2?family=Love+Light&family=Manufacturing+Consent&display=swap")
 layer(base);
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Love+Light&family=Manufacturing+Consent&display=swap");
+@import "tailwindcss";
 @plugin 'flowbite-react/plugin/tailwindcss';
 @source '../.flowbite-react/class-list.json';
 
 @theme {
-  --font-love-light: 'Love Light', sans-serif;
-  --font-manufacturing-consent: 'Manufacturing Consent', sans-serif;
+  --font-love-light: "Love Light", sans-serif;
+  --font-manufacturing-consent: "Manufacturing Consent", sans-serif;
+  --font-bebas-neue: "Bebas Neue", sans-serif;
 
   --color-preto-100: #1e1e1e;
   --color-preto-200: #2a2a2a;

@@ -69,13 +69,15 @@ function FightPage({ setLogged }) {
   const years = getYears(matches);
 
   return (
-    <div>
+    <div className="w-2/3">
       <NavbarFs setNewMatchIsOpen={setNewMatchIsOpen} setLogged={setLogged} />
       {newMatchIsOpen ? (
         <NewFight setNewMatchIsOpen={setNewMatchIsOpen} />
       ) : (
         <div>
-          <h2>Confira as Lutas do mês</h2>
+          <h4 className=" text-2xl md:text-5xl font-bebas-neue text-center  m-4">
+            Confira as Lutas do mês
+          </h4>
           <div className="flex gap-2 mb-4 text-preto">
             <Select
               onChange={(e) => {

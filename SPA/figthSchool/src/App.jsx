@@ -36,19 +36,19 @@ export default function App() {
   return (
     <main className="bg-black text-white min-h-screen w-full p-4 flex flex-col items-center gap-6">
       <BrowserRouter>
-        <div className="flex md:flex-row flex-col items-center gap-2">
+        <div className="flex flex-row  items-center gap-2">
           <img
             src="/fightschool-logo1.png"
             alt="Fight School Logo"
-            className="w-32 h-32 md:w-48 md:h-48"
+            className="w-12 h-12 md:w-48 md:h-48"
           />
-          <h1 className="text-6xl font-manufacturing-consent font-normal text-yellow-300 text-center">
+          <h1 className="text-3xl md:text-6xl font-manufacturing-consent font-normal text-yellow-300 text-center">
             Fight School - Quinta Fire
           </h1>
           <img
             src="/fightschool-logo2.png"
             alt="Fight School Logo"
-            className="w-32 h-32 md:w-48 md:h-48"
+            className="w-12 h-12 md:w-48 md:h-48"
           />
         </div>
         <AppRoutes setLogged={setLogged} logged={logged} />
