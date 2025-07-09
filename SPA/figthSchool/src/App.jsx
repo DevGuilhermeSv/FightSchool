@@ -42,7 +42,7 @@ export default function App() {
             alt="Fight School Logo"
             className="w-32 h-32 md:w-48 md:h-48"
           />
-          <h1 className="text-6xl font-manufacturingConsent font-normal text-yellow-300 text-center">
+          <h1 className="text-6xl font-manufacturing-consent font-normal text-yellow-300 text-center">
             Fight School - Quinta Fire
           </h1>
           <img
