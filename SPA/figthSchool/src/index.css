@@ -1,4 +1,42 @@
-@import url("https://fonts.googleapis.com/css2?family=Love+Light&family=Manufacturing+Consent&display=swap");
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Love+Light&family=Manufacturing+Consent&display=swap')
+layer(base);
+@import 'tailwindcss';
+
+@theme {
+  --font-love-light: 'Love Light', sans-serif;
+  --font-manufacturing-consent: 'Manufacturing Consent', sans-serif;
+
+  --color-preto-100: #1e1e1e;
+  --color-preto-200: #2a2a2a;
+  --color-preto-300: #3a3a3a;
+  --color-preto: #121212;
+  --color-preto-text: #f5f5f5;
+
+  --color-vermelho-100: #ff4e5b;
+  --color-vermelho-200: #b91c2c;
+  --color-vermelho: #d7263d;
+  --color-vermelho-text: #fff1f1;
+
+  --color-amarelo-100: #ffe44d;
+  --color-amarelo-200: #ccaa00;
+  --color-amarelo: #ffce00;
+  --color-amarelo-text: #1a1a1a;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
