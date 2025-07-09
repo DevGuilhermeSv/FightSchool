@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Love+Light&family=Manufacturing+Consent&display=swap')
 layer(base);
 @import 'tailwindcss';
+@plugin 'flowbite-react/plugin/tailwindcss';
+@source '../.flowbite-react/class-list.json';
 
 @theme {
   --font-love-light: 'Love Light', sans-serif;

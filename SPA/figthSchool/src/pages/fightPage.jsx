@@ -4,7 +4,7 @@ import MatchRepository from "../repositories/MatchRepository";
 import ListFights from "../Components/listFights";
 import NewFight from "../Components/newFight";
 import { Select, SelectItem } from "../Components/ui/select";
-
+import NavbarFs from "../Components/NavbarFs"; // Importa o componente NavbarFs
 const months = [
   { value: "", label: "Todos" },
   { value: "1", label: "Janeiro" },
@@ -70,11 +70,7 @@ function FightPage({ setLogged }) {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4 min-w-screen border-2 border-yellow-500 p-4">
-        <Button onClick={() => setNewMatchIsOpen(true)}>Nova Luta</Button>
-        <Button>Ver resultados anteriores</Button>
-        <Button onClick={() => setLogged(false)}>Sair</Button>
-      </div>
+      <NavbarFs setNewMatchIsOpen={setNewMatchIsOpen} setLogged={setLogged} />
       {newMatchIsOpen ? (
         <NewFight setNewMatchIsOpen={setNewMatchIsOpen} />
       ) : (

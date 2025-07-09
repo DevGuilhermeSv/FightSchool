@@ -1,16 +1,27 @@
-import { Navbar, Dropdown, Avatar } from "flowbite-react";
+import {
+  Navbar,
+  NavbarLink,
+  NavbarToggle,
+  Dropdown,
+  Avatar,
+  NavbarBrand,
+  NavbarCollapse,
+  DropdownHeader,
+  DropdownItem,
+} from "flowbite-react";
 import { useNavigate } from "react-router-dom";
+import { Belt } from "./NewProfile";
 
-export default function NavbarFs({ setNewMatchIsOpen, setLogged }) {
+function NavbarFs({ setNewMatchIsOpen, setLogged }) {
   const navigate = useNavigate();
 
   return (
     <Navbar fluid rounded className="bg-black text-white">
-      <Navbar.Brand href="#">
+      {/* <NavbarBrand href="#">
         <span className="self-center whitespace-nowrap text-xl font-semibold text-yellow-400">
           Fight School
         </span>
-      </Navbar.Brand>
+      </NavbarBrand> */}
 
       <div className="flex md:order-2">
         <Dropdown
@@ -23,35 +34,36 @@ export default function NavbarFs({ setNewMatchIsOpen, setLogged }) {
             />
           }
         >
-          <Dropdown.Header>
+          <DropdownHeader>
             <span className="block text-sm font-medium">Usuário</span>
-          </Dropdown.Header>
-          <Dropdown.Item onClick={() => setLogged(false)}>Sair</Dropdown.Item>
+          </DropdownHeader>
+          <DropdownItem onClick={() => setLogged(false)}>Sair</DropdownItem>
         </Dropdown>
-        <Navbar.Toggle />
+        <NavbarToggle />
       </div>
 
-      <Navbar.Collapse>
-        <Navbar.Link
+      <NavbarCollapse>
+        <NavbarLink
           href="#"
           onClick={() => setNewMatchIsOpen(true)}
           className="text-white hover:text-yellow-300"
         >
           Nova Luta
-        </Navbar.Link>
+        </NavbarLink>
 
         <Dropdown label="Ranking de Atletas" inline>
-          <Dropdown.Item onClick={() => navigate("/ranking/peso-leve")}>
-            Peso Leve
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => navigate("/ranking/peso-medio")}>
-            Peso Médio
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => navigate("/ranking/peso-pesado")}>
-            Peso Pesado
-          </Dropdown.Item>
+          {Object.keys(Belt).map((belt, index) => (
+            <DropdownItem
+              key={index}
+              onClick={() => navigate(`/ranking/${belt}`)}
+            >
+              {belt}
+            </DropdownItem>
+          ))}
         </Dropdown>
-      </Navbar.Collapse>
+      </NavbarCollapse>
     </Navbar>
   );
 }
+
+export default NavbarFs;
