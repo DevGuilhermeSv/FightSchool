@@ -20,12 +20,13 @@ function NewFight({ logged }) {
 
   console.log(logged);
 
-  const [newMatch, setNewMatch] = useState({});
+  const [newMatch, setNewMatch] = useState({ status: 0 });
 
   const [users, setUsers] = useState([]);
 
   const fetchUsers = async () => {
     const res = await UserRepository.getAllUsers();
+    res.sort((a, b) => a.name.localeCompare(b.name));
     setUsers(res);
   };
 
@@ -45,7 +46,7 @@ function NewFight({ logged }) {
       await MatchRepository.createMatch(newMatch);
       alert("Luta criada com sucesso!");
       setNewMatch({});
-      await fetchUsers();
+      navigate("/fightPage");
     } catch (error) {
       console.error("Erro ao criar luta:", error);
       alert("Erro ao criar luta:" + error.message);
@@ -53,8 +54,10 @@ function NewFight({ logged }) {
   };
 
   return (
-    <BaseComponent>
-      <h2 className="text-xl font-semibold">Criar nova luta</h2>
+    <BaseComponent className="w-2/3">
+      <h2 className="text-2xl md:text-5xl font-bebas-neue text-center">
+        Nova Luta
+      </h2>
 
       <Select
         value={newMatch.fighterOneId || ""}
@@ -83,15 +86,7 @@ function NewFight({ logged }) {
         onChange={(e) => setNewMatch({ ...newMatch, date: e.target.value })}
       />
 
-      <Select onChange={(v) => setNewMatch({ ...newMatch, location: v })}>
-        {Object.entries(FightStatusMap).map(([val, label]) => (
-          <SelectItem key={val} value={val}>
-            {label}
-          </SelectItem>
-        ))}
-      </Select>
-
-      <Button onClick={createMatch}>Criar Luta</Button>
+      <Button onClick={createMatch}>Agendar Luta</Button>
     </BaseComponent>
   );
 }
