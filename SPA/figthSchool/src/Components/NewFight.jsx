@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  SelectValue,
-} from "@/components/ui/select";
+import { SelectItem } from "@/components/ui/select";
 import { Select } from "./ui/select";
-import ListFights from "./listFights";
 import BaseComponent from "./ui/BaseComponent";
 import UserRepository from "../repositories/UserRepository";
 import MatchRepository from "../repositories/MatchRepository";
+import { useNavigate } from "react-router-dom";
 
 const FightStatusMap = {
   0: "Agendado",
@@ -19,7 +14,12 @@ const FightStatusMap = {
   2: "Finalizado",
 };
 
-function NewFight({ setNewMatchIsOpen }) {
+function NewFight({ logged }) {
+  const navigate = useNavigate();
+  console.log("NewFight component rendered");
+
+  console.log(logged);
+
   const [newMatch, setNewMatch] = useState({});
 
   const [users, setUsers] = useState([]);
@@ -30,6 +30,12 @@ function NewFight({ setNewMatchIsOpen }) {
   };
 
   useEffect(() => {
+    if (!logged) {
+      navigate("/login");
+    }
+  }, [logged, navigate]);
+
+  useEffect(() => {
     fetchUsers();
   }, []);
 
@@ -38,7 +44,6 @@ function NewFight({ setNewMatchIsOpen }) {
       console.log(newMatch);
       await MatchRepository.createMatch(newMatch);
       alert("Luta criada com sucesso!");
-      setNewMatchIsOpen(false);
       setNewMatch({});
       await fetchUsers();
     } catch (error) {

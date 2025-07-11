@@ -12,8 +12,12 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Belt } from "./NewProfile";
 
-function NavbarFs({ setNewMatchIsOpen, setLogged }) {
+function NavbarFs({ setLogged }) {
   const navigate = useNavigate();
+
+  function NewMatchHandler() {
+    navigate("/newFight");
+  }
 
   return (
     <Navbar fluid rounded className="bg-black text-white">
@@ -26,13 +30,13 @@ function NavbarFs({ setNewMatchIsOpen, setLogged }) {
       <div className="flex md:order-2">
         <Dropdown
           inline
-          label={
-            <Avatar
-              alt="user"
-              img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-              rounded
-            />
-          }
+          // label={
+          //   <Avatar
+          //     alt="user"
+          //     img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+          //     rounded
+          //   />
+          // }
         >
           <DropdownHeader>
             <span className="block text-sm font-medium">Usuário</span>
@@ -45,7 +49,7 @@ function NavbarFs({ setNewMatchIsOpen, setLogged }) {
       <NavbarCollapse>
         <NavbarLink
           href="#"
-          onClick={() => setNewMatchIsOpen(true)}
+          onClick={() => NewMatchHandler()}
           className="text-white hover:text-yellow-300"
         >
           Nova Luta

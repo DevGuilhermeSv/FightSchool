@@ -70,49 +70,44 @@ function FightPage({ setLogged }) {
 
   return (
     <div className="w-2/3">
-      <NavbarFs setNewMatchIsOpen={setNewMatchIsOpen} setLogged={setLogged} />
-      {newMatchIsOpen ? (
-        <NewFight setNewMatchIsOpen={setNewMatchIsOpen} />
-      ) : (
-        <div>
-          <h4 className=" text-2xl md:text-5xl font-bebas-neue text-center  m-4">
-            Confira as Lutas do mês
-          </h4>
-          <div className="flex gap-2 mb-4 text-preto">
-            <Select
-              onChange={(e) => {
-                console.log(e);
-                setMonthFilter(e);
-              }}
-              value={monthFilter}
-            >
-              {months.map((m) => (
-                <SelectItem key={m.value} value={m.value}>
-                  {m.label}
-                </SelectItem>
-              ))}
+      <div>
+        <h4 className=" text-2xl md:text-5xl font-bebas-neue text-center  m-4">
+          Confira as Lutas do mês
+        </h4>
+        <div className="flex gap-2 mb-4 text-preto">
+          <Select
+            onChange={(e) => {
+              console.log(e);
+              setMonthFilter(e);
+            }}
+            value={monthFilter}
+          >
+            {months.map((m) => (
+              <SelectItem key={m.value} value={m.value}>
+                {m.label}
+              </SelectItem>
+            ))}
+          </Select>
+          <Select onChange={(e) => setYearFilter(e)} value={yearFilter}>
+            <SelectItem value="">Todos</SelectItem>
+            {years.slice(1).map((y) => (
+              <SelectItem key={y} value={y}>
+                {y}
+              </SelectItem>
+            ))}
+          </Select>
+          {/* Exemplo de filtro de status */}
+          {
+            <Select onChange={(e) => setFightStatus(e)} value={fightStatus}>
+              <SelectItem value="">Todos Status</SelectItem>
+              <SelectItem value="0">Agendada</SelectItem>
+              <SelectItem value="1">Em andamento</SelectItem>
+              <SelectItem value="2">Finalizada</SelectItem>
             </Select>
-            <Select onChange={(e) => setYearFilter(e)} value={yearFilter}>
-              <SelectItem value="">Todos</SelectItem>
-              {years.slice(1).map((y) => (
-                <SelectItem key={y} value={y}>
-                  {y}
-                </SelectItem>
-              ))}
-            </Select>
-            {/* Exemplo de filtro de status */}
-            {
-              <Select onChange={(e) => setFightStatus(e)} value={fightStatus}>
-                <SelectItem value="">Todos Status</SelectItem>
-                <SelectItem value="0">Agendada</SelectItem>
-                <SelectItem value="1">Em andamento</SelectItem>
-                <SelectItem value="2">Finalizada</SelectItem>
-              </Select>
-            }
-          </div>
-          <ListFights matches={matches} />
+          }
         </div>
-      )}
+        <ListFights matches={matches} />
+      </div>
     </div>
   );
 }

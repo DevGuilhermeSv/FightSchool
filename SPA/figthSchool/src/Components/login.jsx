@@ -3,10 +3,10 @@ import AuthRepository from "../repositories/AuthRepository";
 import BaseComponent from "./ui/BaseComponent";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-
-const API_BASE = "http://localhost:18157/api";
+import { useNavigate } from "react-router-dom";
 
 function Login({ setLogged, className }) {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -19,6 +19,7 @@ function Login({ setLogged, className }) {
       if (data.isAuthSuccessful) {
         setLogged(true);
         localStorage.setItem("token", data.token);
+        navigate("/fightPage");
       } else {
         setError(data.errorMessage || "Login falhou.");
       }

@@ -25,7 +25,9 @@ function Fight({ fight }) {
             </div>
           </div> */}
           <FighterDescription fighter={fight.fighterOne} />
-          <div className="font-bebas-neue font-black">VS</div>
+          <div className="text-amarelo-100 text-5xl font-bebas-neue font-black">
+            VS
+          </div>
           <FighterDescription fighter={fight.fighterTwo} />
         </div>
         <CardInformation fight={fight} />
@@ -36,7 +38,7 @@ function Fight({ fight }) {
 
 function FighterDescription({ fighter }) {
   return (
-    <Card className="text-white space-y-2">
+    <Card className="text-white space-y-2 min-w-50 ">
       <div className="font-bebas-neue text-2xl ">{fighter.userName}</div>
       <div>{Object.keys(Belt)[fighter.belt]}</div>
     </Card>
