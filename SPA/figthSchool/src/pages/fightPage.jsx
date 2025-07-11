@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import MatchRepository from "../repositories/MatchRepository";
 import ListFights from "../Components/listFights";
-import NewFight from "../Components/newFight";
+import NewFight from "./NewFight";
 import { Select, SelectItem } from "../Components/ui/select";
 import NavbarFs from "../Components/NavbarFs"; // Importa o componente NavbarFs
 const months = [

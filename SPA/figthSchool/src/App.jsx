@@ -8,7 +8,7 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import NewFight from "./Components/newFight";
+import NewFight from "./pages/NewFight";
 import NavbarFs from "./Components/NavbarFs"; // Importe o NavbarFs
 import WithNavBar from "./Components/layout/WithNavBar";
 
