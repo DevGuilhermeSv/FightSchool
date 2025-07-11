@@ -29,8 +29,7 @@ function getYears(matches) {
   return ["", ...years];
 }
 
-function FightPage({ setLogged }) {
-  const [newMatchIsOpen, setNewMatchIsOpen] = useState(false);
+function FightPage() {
   const [matches, setMatches] = useState([]);
   const [monthFilter, setMonthFilter] = useState("");
   const [yearFilter, setYearFilter] = useState("");
