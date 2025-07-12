@@ -3,7 +3,7 @@ import NavbarFs from "../NavbarFs";
 export default function WithNavBar({ children, setLogged }) {
   return (
     <>
-      <div className="w-2/3">
+      <div className="md:w-2/3 w-100">
         <NavbarFs setLogged={setLogged} />
         {children}
       </div>
