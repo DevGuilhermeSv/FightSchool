@@ -3,11 +3,11 @@ import Fight from "./Fight";
 
 function ListFights({ matches }) {
   return (
-    <div className="grid gap-4">
+    <>
       {matches.map((m) => (
-        <Fight key={m.id} fight={m} />
+        <Fight key={m.id} fight={m} className="mb-4" />
       ))}
-    </div>
+    </>
   );
 }
 

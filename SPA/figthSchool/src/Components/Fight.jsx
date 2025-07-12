@@ -12,16 +12,16 @@ const FightStatusMap = {
   2: "Finalizado",
 };
 
-function Fight({ fight }) {
+function Fight({ fight, className }) {
   return (
-    <BaseComponent className="p-4">
-      <div className="flex flex-col md:flex-row justify-around space-x-4 ">
+    <BaseComponent className={`p-4 ${className}`}>
+      <div className="flex flex-col xl:flex-row xl:justify-around items-center  space-y-2">
         <div
           key={fight.id}
-          className=" flex flex-row justify-around space-x-4 align-center items-center"
+          className=" flex flex-row justify-around space-x-4 align-center items-center "
         >
           <FighterDescription fighter={fight.fighterOne} />
-          <div className="text-amarelo-100 text-5xl font-bebas-neue font-black">
+          <div className="text-amarelo-100 text-3xl md:text-5xl font-bebas-neue font-black">
             VS
           </div>
           <FighterDescription fighter={fight.fighterTwo} />
@@ -34,7 +34,7 @@ function Fight({ fight }) {
 
 function FighterDescription({ fighter }) {
   return (
-    <Card className="text-white space-y-2 min-w-50 ">
+    <Card className="text-white space-y-2 md:min-w-50 ">
       <div className="font-bebas-neue text-2xl ">{fighter.userName}</div>
       <div>{Object.keys(Belt)[fighter.belt]}</div>
     </Card>
@@ -52,7 +52,7 @@ function CardInformation({ fight }) {
   return (
     <>
       <Card className="max-w-sm font-bebas-neue">
-        <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <h5 className="text-2xl font-bold tracking-wide  text-gray-900 dark:text-white ">
           {FightStatusMap[fight.status]}
         </h5>
         <p className="font-normal text-gray-700 dark:text-gray-400">
