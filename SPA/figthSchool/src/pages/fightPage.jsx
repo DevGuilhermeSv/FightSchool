@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import MatchRepository from "../repositories/MatchRepository";
-import ListFights from "../Components/listFights";
+import FightList from "../Components/FightList";
 import NewFight from "./NewFight";
 import { Select, SelectItem } from "../Components/ui/select";
 import NavbarFs from "../Components/NavbarFs"; // Importa o componente NavbarFs
@@ -104,7 +104,7 @@ function FightPage() {
           </Select>
         }
       </div>
-      <ListFights matches={matches} />
+      <FightList matches={matches} />
     </div>
   );
 }

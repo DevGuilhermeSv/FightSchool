@@ -1,7 +1,7 @@
 import BaseComponent from "./ui/BaseComponent";
 import Fight from "./Fight";
 
-function ListFights({ matches }) {
+function FightList({ matches }) {
   return (
     <>
       {matches.map((m) => (
@@ -11,4 +11,4 @@ function ListFights({ matches }) {
   );
 }
 
-export default ListFights;
+export default FightList;
