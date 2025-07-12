@@ -4,7 +4,8 @@ import MatchRepository from "../repositories/MatchRepository";
 import FightList from "../Components/FightList";
 import NewFight from "./NewFight";
 import { Select, SelectItem } from "../Components/ui/select";
-import NavbarFs from "../Components/NavbarFs"; // Importa o componente NavbarFs
+import { FightStatusMap } from "../utils/FightStatusMap";
+
 const months = [
   { value: "", label: "Todos" },
   { value: "1", label: "Janeiro" },
@@ -97,10 +98,12 @@ function FightPage() {
         {/* Exemplo de filtro de status */}
         {
           <Select onChange={(e) => setFightStatus(e)} value={fightStatus}>
+            {Object.entries(FightStatusMap).map(([value, label]) => (
+              <SelectItem key={value} value={value}>
+                {label}
+              </SelectItem>
+            ))}
             <SelectItem value="">Todos Status</SelectItem>
-            <SelectItem value="0">Agendada</SelectItem>
-            <SelectItem value="1">Em andamento</SelectItem>
-            <SelectItem value="2">Finalizada</SelectItem>
           </Select>
         }
       </div>

@@ -6,12 +6,7 @@ import UpdateFightStatusModal from "./UpdateFightStatusModal";
 
 import WarningButton from "./ui/warningButton";
 
-const FightStatusMap = {
-  0: "Agendado",
-  1: "Em andamento",
-  2: "Finalizado",
-};
-
+import { FightStatusMap } from "../utils/FightStatusMap";
 function Fight({ fight, className }) {
   return (
     <BaseComponent className={`p-4 ${className}`}>
@@ -59,7 +54,7 @@ function CardInformation({ fight }) {
           {fight.date}
         </p>
         <Button onClick={() => setOpenModal(true)}>
-          Atualizar Status
+          Finalizar
           <svg
             className="-mr-1 ml-2 h-4 w-4"
             fill="currentColor"

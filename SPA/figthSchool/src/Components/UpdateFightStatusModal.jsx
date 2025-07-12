@@ -12,12 +12,6 @@ import { Input } from "./ui/input";
 import MatchRepository from "../repositories/MatchRepository";
 import { useNavigate } from "react-router-dom";
 
-const FightStatusMap = {
-  0: "Agendado",
-  1: "Em andamento",
-  2: "Finalizado",
-};
-
 export default function UpdateFightStatusModal({ show, onClose, fight }) {
   const [status, setStatus] = useState(fight.status);
   const [switch1, setSwitch1] = useState(false);
@@ -31,11 +25,9 @@ export default function UpdateFightStatusModal({ show, onClose, fight }) {
     try {
       const updatedMatch = {
         ...Match,
-        fightStatus: status,
+        fightStatus: 1,
         fighterOneScore: score1,
         fighterTwoScore: score2,
-        finish1: switch1,
-        finish2: switch2,
       };
       await MatchRepository.updateMatch(updatedMatch);
       alert("Luta atualizada com sucesso!");
@@ -51,11 +43,6 @@ export default function UpdateFightStatusModal({ show, onClose, fight }) {
     if (switch1) setSwitch2(false);
     if (switch2) setSwitch1(false);
   }, [switch1, switch2]);
-
-  function handleStatusChange(newStatus) {
-    setStatus(newStatus);
-    setMatch((prev) => ({ ...prev, fightStatus: newStatus }));
-  }
 
   function handleScore1Change(e) {
     const value = Number(e.target.value);
@@ -85,56 +72,41 @@ export default function UpdateFightStatusModal({ show, onClose, fight }) {
       <ModalBody>
         <form className="space-y-4">
           <div>
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-              Novo Status
-            </label>
-            <Select
-              value={status}
-              onChange={(e) => handleStatusChange(Number(e))}
-            >
-              {Object.entries(FightStatusMap).map(([key, value]) => (
-                <SelectItem key={key} value={key}>
-                  {value}
-                </SelectItem>
-              ))}
-            </Select>
-            {status === 2 && (
-              <>
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  Placar
-                </label>
-                <div className="flex space-x-4">
-                  <div className="flex flex-col w-1/2 space-y-2">
-                    <Input
-                      type="number"
-                      value={score1}
-                      onChange={handleScore1Change}
-                      placeholder={`Pontos Lutador 1 (${fight.fighterOne.userName})`}
-                      className="w-full p-2 "
-                    />
-                    <ToggleSwitch
-                      checked={switch1}
-                      label="Finalização"
-                      onChange={handleSwitch1Change}
-                    />
-                  </div>
-                  <div className="flex flex-col w-1/2 space-y-2">
-                    <Input
-                      type="number"
-                      value={score2}
-                      onChange={handleScore2Change}
-                      placeholder={`Pontos Lutador 2 (${fight.fighterTwo.userName})`}
-                      className="w-full p-2 "
-                    />
-                    <ToggleSwitch
-                      checked={switch2}
-                      label="Finalização"
-                      onChange={handleSwitch2Change}
-                    />
-                  </div>
+            <>
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Placar
+              </label>
+              <div className="flex space-x-4">
+                <div className="flex flex-col w-1/2 space-y-2">
+                  <Input
+                    type="number"
+                    value={score1}
+                    onChange={handleScore1Change}
+                    placeholder={`Pontos Lutador 1 (${fight.fighterOne.userName})`}
+                    className="w-full p-2 "
+                  />
+                  <ToggleSwitch
+                    checked={switch1}
+                    label="Finalização"
+                    onChange={handleSwitch1Change}
+                  />
                 </div>
-              </>
-            )}
+                <div className="flex flex-col w-1/2 space-y-2">
+                  <Input
+                    type="number"
+                    value={score2}
+                    onChange={handleScore2Change}
+                    placeholder={`Pontos Lutador 2 (${fight.fighterTwo.userName})`}
+                    className="w-full p-2 "
+                  />
+                  <ToggleSwitch
+                    checked={switch2}
+                    label="Finalização"
+                    onChange={handleSwitch2Change}
+                  />
+                </div>
+              </div>
+            </>
           </div>
         </form>
       </ModalBody>
