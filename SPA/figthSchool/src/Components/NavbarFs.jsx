@@ -20,6 +20,9 @@ function NavbarFs({ setLogged }) {
   function RankingHandler() {
     navigate("/ranking");
   }
+  function FightPageHandler() {
+    navigate("/fightPage");
+  }
 
   return (
     <Navbar fluid rounded className="bg-black text-white">
@@ -62,6 +65,13 @@ function NavbarFs({ setLogged }) {
           className="text-white hover:text-yellow-300"
         >
           Ranking dos Atletas
+        </NavbarLink>
+        <NavbarLink
+          href="#"
+          onClick={() => FightPageHandler()}
+          className="text-white hover:text-yellow-300"
+        >
+          Lutas do Mês
         </NavbarLink>
       </NavbarCollapse>
     </Navbar>
