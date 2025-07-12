@@ -10,13 +10,15 @@ import {
   DropdownItem,
 } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
-import { Belt } from "./NewProfile";
 
 function NavbarFs({ setLogged }) {
   const navigate = useNavigate();
 
   function NewMatchHandler() {
     navigate("/newFight");
+  }
+  function RankingHandler() {
+    navigate("/ranking");
   }
 
   return (
@@ -54,17 +56,13 @@ function NavbarFs({ setLogged }) {
         >
           Nova Luta
         </NavbarLink>
-
-        <Dropdown label="Ranking de Atletas" inline>
-          {Object.keys(Belt).map((belt, index) => (
-            <DropdownItem
-              key={index}
-              onClick={() => navigate(`/ranking/${belt}`)}
-            >
-              {belt}
-            </DropdownItem>
-          ))}
-        </Dropdown>
+        <NavbarLink
+          href="#"
+          onClick={() => RankingHandler()}
+          className="text-white hover:text-yellow-300"
+        >
+          Ranking dos Atletas
+        </NavbarLink>
       </NavbarCollapse>
     </Navbar>
   );
