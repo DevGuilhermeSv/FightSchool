@@ -11,6 +11,7 @@ import {
 import NewFight from "./pages/NewFight";
 import NavbarFs from "./Components/NavbarFs"; // Importe o NavbarFs
 import WithNavBar from "./Components/layout/WithNavBar";
+import RankingPage from "./pages/RankingPage"; // Importa a página de ranking
 
 function AppRoutes({ setLogged, logged }) {
   const navigate = useNavigate();
@@ -29,6 +30,10 @@ function AppRoutes({ setLogged, logged }) {
         <Route
           path="/fightPage"
           element={<FightPage setLogged={setLogged} />}
+        />
+        <Route
+          path="/ranking"
+          element={<RankingPage setLogged={setLogged} />}
         />
       </Route>
       <Route path="/login" element={<LoginPage setLogged={setLogged} />} />

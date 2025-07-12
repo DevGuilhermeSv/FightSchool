@@ -3,11 +3,13 @@
 using Application.DTO.UserRanking;
 using Application.Interfaces;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FightSchool.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/[controller]")]
 public class UserRankingsController : ControllerBase
 {
@@ -29,10 +31,7 @@ public class UserRankingsController : ControllerBase
     public async Task<IActionResult> GetUserRankings([FromQuery] string? belt = null)
     {
         var rankings = await _userRankingService.GetRankingsAsync(belt);
-        if (rankings == null || !rankings.Any())
-        {
-            return NotFound("No rankings found.");
-        }
+        
         return Ok(rankings);
     }
 }
