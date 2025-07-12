@@ -15,6 +15,7 @@ public class MatchProfile : Profile
         CreateMap<CreateMatch, Match>();
 
         CreateMap<UpdateMatch, Match>()
+            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.FightStatus.ToString()))
             .ForAllMembers(dest => dest.Condition((src, destMember, srcMember) => srcMember != null));
     }
 }

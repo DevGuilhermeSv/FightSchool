@@ -33,6 +33,6 @@ public class Match
 public enum FightStatus
 {
     Pendente,
-    Concluido,
+    Finalizado,
     Cancelado
 }

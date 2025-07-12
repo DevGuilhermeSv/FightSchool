@@ -64,7 +64,7 @@ namespace Application.Services
             var defaultStatus = Enum.Parse<FightStatus>(existingMatch.Status);
             switch ( defaultStatus)
             {
-                case FightStatus.Concluido:
+                case FightStatus.Finalizado:
                 {
                     throw new FightSchoolServiceException("Luta concluida, não pode ser atualizada");
                     break;
@@ -82,7 +82,7 @@ namespace Application.Services
             _mapper.Map(updateMatch, existingMatch);
             
 
-            if (updateMatch.FightStatus == FightStatus.Concluido)
+            if (updateMatch.FightStatus == FightStatus.Finalizado)
             {
                 try
                 {
