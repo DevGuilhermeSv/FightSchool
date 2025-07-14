@@ -63,8 +63,8 @@ public class UserRankingService : IUserRankingService
     {
         if (match.WasProcessed) throw new FightSchoolServiceException("Luta ja contabilizada");
 
-        var task1 = _userRankingRepository.GetByUserId(match.FighterOneId);
-        var task2 = _userRankingRepository.GetByUserId(match.FighterTwoId);
+        var task1 = _userRankingRepository.GetByUserId(match.FighterOneInformation.UserId);
+        var task2 = _userRankingRepository.GetByUserId(match.FighterTwoInformation.UserId);
         var userRankings = await Task.WhenAll(task1, task2);
 
         if (userRankings.Any(x => x == null))
@@ -75,7 +75,7 @@ public class UserRankingService : IUserRankingService
         var userRanking1 = userRankings.FirstOrDefault();
         var userRanking2 = userRankings.Skip(1).FirstOrDefault();
 
-        if (match.FighterOneScore > match.FighterTwoScore)
+        if (match.FighterOneInformation.FighterScore > match.FighterTwoInformation.FighterScore)
         {
             userRanking1.Victories++;
             userRanking2.Defenses++;
@@ -86,8 +86,8 @@ public class UserRankingService : IUserRankingService
             userRanking1.Defenses++;
         }
 
-        userRanking1.Points += match.FighterOneScore;
-        userRanking2.Points += match.FighterTwoScore;
+        userRanking1.Points += match.FighterOneInformation.FighterScore;
+        userRanking2.Points += match.FighterTwoInformation.FighterScore;
 
         _userRankingRepository.Update(userRanking1);
         _userRankingRepository.Update(userRanking2);
