@@ -14,7 +14,7 @@ namespace Infrastructure.Repository
         public IQueryable<Match> GetMatchesByUserIdAsync(Guid userId)
         {
             return  DbSet
-                .Where(m => m.FighterOneId == userId || m.FighterTwoId == userId);
+                .Where(m => m.FighterOneInformation.UserId == userId || m.FighterTwoInformation.UserId == userId);
         }
     }
 }
