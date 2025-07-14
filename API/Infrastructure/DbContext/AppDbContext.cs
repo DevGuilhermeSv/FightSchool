@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Infrastructure.ModelConfiguration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ namespace Infrastructure.DbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            MatchConfiguration.Configure(modelBuilder);
 
         }
     }
