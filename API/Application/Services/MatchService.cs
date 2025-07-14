@@ -61,23 +61,7 @@ namespace Application.Services
             var existingMatch = _matchRepository.GetById(updateMatch.Id);
             if (existingMatch == null) throw new KeyNotFoundException("Match not found");
 
-            var defaultStatus = Enum.Parse<FightStatus>(existingMatch.Status);
-            switch ( defaultStatus)
-            {
-                case FightStatus.Finalizado:
-                {
-                    throw new FightSchoolServiceException("Luta concluida, não pode ser atualizada");
-                    break;
-                }
-                case FightStatus.Cancelado:
-                {
-                    throw new FightSchoolServiceException("Luta cancelada, não pode ser atualizada");
-                    break;
-                }
-                default:
-                    break;
-                    
-            }
+            
 
             _mapper.Map(updateMatch, existingMatch);
             
