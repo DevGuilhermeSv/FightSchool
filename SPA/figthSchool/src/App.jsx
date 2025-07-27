@@ -9,8 +9,8 @@ import {
   useLocation,
 } from "react-router-dom";
 import NewFight from "./pages/NewFight";
-import NavbarFs from "./Components/NavbarFs"; // Importe o NavbarFs
-import WithNavBar from "./Components/layout/WithNavBar";
+import NavbarFs from "./components/NavbarFs"; // Importe o NavbarFs
+import WithNavBar from "./components/layout/WithNavBar";
 import RankingPage from "./pages/RankingPage"; // Importa a página de ranking
 
 function AppRoutes({ setLogged, logged }) {
