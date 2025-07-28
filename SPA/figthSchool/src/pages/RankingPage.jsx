@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import RankingRepository from "../repositories/RankingRepository"; // Altere para RankingRepository
-import FightList from "../Components/FightList";
+import FightList from "../components/FightList";
 import NewFight from "./NewFight";
-import { Select, SelectItem } from "../Components/ui/select";
-import NavbarFs from "../Components/NavbarFs";
-import { Belt } from "../Components/NewProfile";
-import RankingList from "../Components/RankingList";
+import { Select, SelectItem } from "../components/ui/select";
+import NavbarFs from "../components/NavbarFs";
+import { Belt } from "../components/NewProfile";
+import RankingList from "../components/RankingList";
 
 function RankingPage() {
   const [rankings, setRankings] = useState([]); // rankings ao invés de matches
