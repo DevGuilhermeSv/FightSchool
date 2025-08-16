@@ -1,0 +1,12 @@
+services:
+  api:
+    build: ./API
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./API:/app
+  spa:
+    build: ./SPA/fightSchool
+    env_file: ./SPA/fightSchool/.env
+    ports:
+      - "3000:3000"
