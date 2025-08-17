@@ -1,5 +1,5 @@
-import NewProfile from "@/components/NewProfile";
-import Login from "@/components/Login";
+import NewProfile from "@/Components/NewProfile";
+import Login from "@/Components/Login";
 function LoginPage({ setLogged }) {
   return (
     <div className="flex md:flex-row flex-col justify-center items-center gap-4 p-4 w-full">

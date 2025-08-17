@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/Components/ui/button";
+import { Input } from "@/Components/ui/input";
 import {
   SelectTrigger,
   SelectContent,
   SelectItem,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/Components/ui/select";
 import { Select } from "./ui/select";
 import BaseComponent from "./ui/BaseComponent";
 import AuthRepository from "../repositories/AuthRepository";

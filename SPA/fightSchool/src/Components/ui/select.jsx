@@ -1,4 +1,4 @@
-// src/components/ui/select.tsx
+// src/Components/ui/select.tsx
 import React from "react";
 import { Select as Selectflow } from "flowbite-react";
 export function Select(props) {

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import MatchRepository from "../repositories/MatchRepository";
-import FightList from "../components/FightList";
-import NewFight from "./NewFight";
-import { Select, SelectItem } from "../components/ui/select";
+import FightList from "../Components/FightList";
+import { Select, SelectItem } from "../Components/ui/select";
 import { FightStatusMap } from "../utils/FightStatusMap";
 
 const months = [

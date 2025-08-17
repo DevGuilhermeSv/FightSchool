@@ -1,4 +1,4 @@
-// src/components/ui/input.tsx
+// src/Components/ui/input.tsx
 import React from "react";
 import { TextInput } from "flowbite-react";
 

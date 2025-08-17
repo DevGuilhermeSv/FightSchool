@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { SelectItem } from "@/components/ui/select";
-import { Select } from "../components/ui/select";
-import BaseComponent from "../components/ui/BaseComponent";
+import { Button } from "@/Components/ui/button";
+import { Input } from "@/Components/ui/input";
+import { SelectItem } from "@/Components/ui/select";
+import { Select } from "../Components/ui/select";
+import BaseComponent from "../Components/ui/BaseComponent";
 import UserRepository from "../repositories/UserRepository";
 import MatchRepository from "../repositories/MatchRepository";
 import { useNavigate } from "react-router-dom";
