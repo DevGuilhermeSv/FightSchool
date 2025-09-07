@@ -21,7 +21,8 @@ public class BaseRepository<T> : IRepository<T> where T : class
         return DbSet;
     }
 
-    public IQueryable<T> Filter(IQueryable<T> queryable, string property, string? filter)
+    public IQueryable<T> 
+        Filter(IQueryable<T> queryable, string property, string? filter)
     {
         if (string.IsNullOrEmpty(filter))
         {

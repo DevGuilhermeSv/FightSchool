@@ -13,17 +13,17 @@ public class Match
         FighterTwoInformation = new MatchInformation(fighterTwo);
         Date = date.ToUniversalTime();
     }
-
+    
+    //start properties
     public Guid Id { get; set; }
 
     public MatchInformation FighterOneInformation { get; set; }
-
     public MatchInformation FighterTwoInformation { get; set; }
     public DateTime Date { get; set; }
 
-
     private FightStatus _status;
-
+    
+    //end properties 
     public string Status
     {
         get => _status.ToString();

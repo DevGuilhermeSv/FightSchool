@@ -29,8 +29,8 @@ namespace Application.Services
                 query = _matchRepository.Filter(query, "Status", searchMatch.FightStatus.ToString());
                 query = _matchRepository.Filter(query, "_minDate", searchMatch._minDate);
                 query = _matchRepository.Filter(query, "_maxDate", searchMatch._maxDate);
-
-            var result =_mapper.ProjectTo<MatchResponse>(query);
+                
+            var result =_mapper.ProjectTo<MatchResponse>(query.AsNoTracking());
                 
             return await result.ToListAsync();
         }

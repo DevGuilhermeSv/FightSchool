@@ -23,7 +23,6 @@ namespace FightSchool.Controllers
         // Endpoint para buscar uma lista de matches com base em critérios de busca
         [HttpGet]
         [ProducesResponseType<List<MatchResponse>>(StatusCodes.Status200OK)]
-
         public async Task<IActionResult> SearchMatches([FromQuery] SearchMatch searchCriteria)
         {
             var matches = await _matchService.SearchMatchesAsync(searchCriteria);

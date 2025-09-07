@@ -5,11 +5,19 @@ namespace Application.DTO.Match;
 
 public class MatchResponse
 {
-    public Guid Id { get; set; }
-    public GetUser FighterOne { get; set; }
-    public GetUser FighterTwo { get; set; }
-    public DateTime Date { get; set; }
-    public int? FighterOneScore { get; set; }
-    public int? FighterTwoScore { get; set; }
-    public FightStatus Status { get; set; }
+    public Guid Id { get; init; }
+    public MatchInformationResponse FighterOneInformation { get; init; }
+
+    public MatchInformationResponse FighterTwoInformation { get; init; }
+    public DateTime Date { get; init; }
+    public FightStatus Status { get; init; }
 }
+
+public record MatchInformationResponse(
+    
+    UserDto User,
+    Guid UserId ,
+    int FighterScore,
+    int Punishments ,
+    bool VictoryBySubmission 
+);
