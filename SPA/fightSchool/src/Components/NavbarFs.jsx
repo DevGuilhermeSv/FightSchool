@@ -23,6 +23,9 @@ function NavbarFs({ setLogged }) {
   function FightPageHandler() {
     navigate("/fightPage");
   }
+  function MyFightsHandler(){
+    navigate("/myFights");
+  }
 
   return (
     <Navbar fluid rounded className="bg-black text-white">
@@ -46,6 +49,8 @@ function NavbarFs({ setLogged }) {
           <DropdownHeader>
             <span className="block text-sm font-medium">Usuário</span>
           </DropdownHeader>
+          <DropdownItem onClick={() => MyFightsHandler()} >Minhas Lutas</DropdownItem>
+
           <DropdownItem onClick={() => setLogged(false)}>Sair</DropdownItem>
         </Dropdown>
         <NavbarToggle />

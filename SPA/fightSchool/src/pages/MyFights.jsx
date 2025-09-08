@@ -28,7 +28,7 @@ function getYears(matches) {
   return ["", ...years];
 }
 
-function FightPage() {
+function MyFights() {
   const [matches, setMatches] = useState([]);
   const [monthFilter, setMonthFilter] = useState("");
   const [yearFilter, setYearFilter] = useState("");
@@ -51,11 +51,8 @@ function FightPage() {
       minDate = new Date(Number(yearFilter), 0, 1);
       maxDate = new Date(Number(yearFilter), 11, 31, 23, 59, 59, 999);
     }
-    const res = await MatchRepository.getAllMatches({
-      fightStatus,
-      minDate: minDate ? minDate.toISOString() : undefined,
-      maxDate: maxDate ? maxDate.toISOString() : undefined,
-    });
+    const userId = localStorage.getItem("userId"); // ou use seu método de autenticação
+    const res = await MatchRepository.getMatchByUser(userId);
     setMatches(res);
   };
 
@@ -69,7 +66,7 @@ function FightPage() {
   return (
     <div className="w-[95%] md:w-2/3">
       <h4 className=" text-2xl md:text-5xl font-bebas-neue text-center  m-4">
-        Proximas Lutas do mês
+        Minhas Lutas
       </h4>
       <div className="flex gap-2 mb-4 text-preto">
         <Select
@@ -109,4 +106,4 @@ function FightPage() {
     </div>
   );
 }
-export default FightPage;
+export default MyFights;

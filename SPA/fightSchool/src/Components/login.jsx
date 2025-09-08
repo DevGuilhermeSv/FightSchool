@@ -19,6 +19,8 @@ function Login({ setLogged, className }) {
       if (data.isAuthSuccessful) {
         setLogged(true);
         localStorage.setItem("token", data.token);
+        const payload = JSON.parse(atob(data.token.split('.')[1]));
+        localStorage.setItem("userId", payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]);
         navigate("/fightPage");
       } else {
         setError(data.errorMessage || "Login falhou.");
