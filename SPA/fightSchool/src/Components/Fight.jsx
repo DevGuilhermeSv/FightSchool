@@ -15,11 +15,11 @@ function Fight({ fight, className }) {
           key={fight.id}
           className=" flex flex-row justify-around space-x-4 align-center items-center "
         >
-          <FighterDescription fighter={fight.fighterOne} />
+          <FighterDescription fighter={fight.fighterOneInformation.user} />
           <div className="text-amarelo-100 text-3xl md:text-5xl font-bebas-neue font-black">
             VS
           </div>
-          <FighterDescription fighter={fight.fighterTwo} />
+          <FighterDescription fighter={fight.fighterTwoInformation.user} />
         </div>
         <CardInformation fight={fight} />
       </div>

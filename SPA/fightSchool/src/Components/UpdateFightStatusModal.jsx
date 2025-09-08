@@ -17,8 +17,8 @@ export default function UpdateFightStatusModal({ show, onClose, fight }) {
   const [switch1, setSwitch1] = useState(false);
   const [switch2, setSwitch2] = useState(true);
   const [Match, setMatch] = useState(fight);
-  const [score1, setScore1] = useState(fight.fighterOneScore || 0);
-  const [score2, setScore2] = useState(fight.fighterTwoScore || 0);
+  const [score1, setScore1] = useState(fight.fighterOneInformation.fighterScore || 0);
+  const [score2, setScore2] = useState(fight.fighterTwoInformation.fighterScore || 0);
   const navigate = useNavigate();
 
   const updateMatch = async () => {
@@ -65,6 +65,30 @@ export default function UpdateFightStatusModal({ show, onClose, fight }) {
     setSwitch2(val);
     setMatch((prev) => ({ ...prev, finish2: val }));
   }
+  function IndividualInformation({ fighterInformation, score1, handleScore1Change, switch1, handleSwitch1Change }) {
+    return (<div className="flex flex-col w-1/2 space-y-2">
+                  <div className="text-2xl font-bold tracking-wide  text-yellow-300">
+                        {fighterInformation.user.userName.toUpperCase()}
+                  </div>
+                  <div className="text-sm font-bold tracking-wide  text-stone-400 mb-5 ">
+                       ( {fighterInformation.user.name.toUpperCase()})
+                  </div>
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Pontos
+                  </label>
+                  <Input
+                    type="number"
+                    value={score1}
+                    onChange={handleScore1Change}
+                    className="w-full"
+                  />
+                  <ToggleSwitch
+                    checked={switch1}
+                    label="Vitoria por Finalização"
+                    onChange={handleSwitch1Change}
+                  />
+                </div>)
+  }
 
   return (
     <Modal show={show} onClose={onClose}>
@@ -73,38 +97,10 @@ export default function UpdateFightStatusModal({ show, onClose, fight }) {
         <form className="space-y-4">
           <div>
             <>
-              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Placar
-              </label>
+              
               <div className="flex space-x-4">
-                <div className="flex flex-col w-1/2 space-y-2">
-                  <Input
-                    type="number"
-                    value={score1}
-                    onChange={handleScore1Change}
-                    placeholder={`Pontos Lutador 1 (${fight.fighterOne.userName})`}
-                    className="w-full p-2 "
-                  />
-                  <ToggleSwitch
-                    checked={switch1}
-                    label="Finalização"
-                    onChange={handleSwitch1Change}
-                  />
-                </div>
-                <div className="flex flex-col w-1/2 space-y-2">
-                  <Input
-                    type="number"
-                    value={score2}
-                    onChange={handleScore2Change}
-                    placeholder={`Pontos Lutador 2 (${fight.fighterTwo.userName})`}
-                    className="w-full p-2 "
-                  />
-                  <ToggleSwitch
-                    checked={switch2}
-                    label="Finalização"
-                    onChange={handleSwitch2Change}
-                  />
-                </div>
+                <IndividualInformation fighterInformation={fight.fighterOneInformation} score1={score1} handleScore1Change={handleScore1Change} switch1={switch1} handleSwitch1Change={handleSwitch1Change} />
+                <IndividualInformation fighterInformation={fight.fighterTwoInformation} score1={score2} handleScore1Change={handleScore2Change} switch1={switch2} handleSwitch1Change={handleSwitch2Change} />
               </div>
             </>
           </div>
