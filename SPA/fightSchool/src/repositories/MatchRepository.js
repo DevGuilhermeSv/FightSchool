@@ -10,6 +10,10 @@ const MatchRepository = {
     const response = await api.get("/Match", { params });
     return response.data;
   },
+  getMatchByUser: async (userId) => {
+    const response = await api.get(`/Match/User/${userId}`);
+    return response.data;
+  },
   getMatchById: async (id) => {
     const response = await api.get(`/Match/${id}`);
     return response.data;
