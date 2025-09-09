@@ -12,12 +12,6 @@ public class MatchProfile : Profile
     {
         CreateMap<Match, MatchResponse>()
             .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.Parse<FightStatus>(src.Status)));
-        
-        CreateMap<CreateMatch, Match>()
-            .ForMember(dest => dest.FighterOneInformation,
-                opt => opt.MapFrom(src => new MatchInformation(src.FighterOneId)))
-            .ForMember(dest => dest.FighterTwoInformation,
-                opt => opt.MapFrom(src => new MatchInformation(src.FighterTwoId)));
 
         CreateMap<UpdateMatch, Match>()
             .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.FightStatus.ToString()))

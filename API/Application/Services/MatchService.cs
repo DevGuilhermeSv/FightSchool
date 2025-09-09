@@ -11,14 +11,16 @@ namespace Application.Services
     public class MatchService : IMatchService
     {
         private readonly IMatchRepository _matchRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IUserRankingService _userRankingService;
         private readonly IMapper _mapper;
 
-        public MatchService(IMatchRepository matchRepository, IMapper mapper, IUserRankingService userRankingService)
+        public MatchService(IMatchRepository matchRepository, IMapper mapper, IUserRankingService userRankingService, IUserRepository userRepository)
         {
             _matchRepository = matchRepository;
             _mapper = mapper;
             _userRankingService = userRankingService;
+            _userRepository = userRepository;
         }
 
 
@@ -50,7 +52,14 @@ namespace Application.Services
 
         public async Task<Guid> CreateMatchAsync(CreateMatch createMatch)
         {
-            var match = _mapper.Map<Match>(createMatch);
+            var user1 = _userRepository.GetById(createMatch.FighterOneId);
+            if(user1 == null)
+                throw new NullReferenceException("Lutador 1 não encontrado");
+            var user2 = _userRepository.GetById(createMatch.FighterTwoId);
+            if (user2 == null)
+                throw new NullReferenceException("Lutador 2 não encontrado");
+
+            var match = new Match(user1, user2, createMatch.Date);
             await _matchRepository.AddAsync(match);
             _matchRepository.SaveChanges();
             return match.Id;
