@@ -12,6 +12,7 @@ import NewFight from "./pages/NewFight";
 import WithNavBar from "./Components/layout/WithNavBar";
 import RankingPage from "./pages/RankingPage"; // Importa a página de ranking
 import MyFights from "./pages/MyFights";
+import MonthFightPage from "./pages/MonthFightPage";
 
 function AppRoutes({ setLogged, logged }) {
   const navigate = useNavigate();
@@ -32,9 +33,10 @@ function AppRoutes({ setLogged, logged }) {
           element={<FightPage setLogged={setLogged} />}
         />
         <Route
-          path="/myFights"
-          element={<MyFights setLogged={setLogged} />}
+          path="/monthFightPage"
+          element={<MonthFightPage setLogged={setLogged} />}
         />
+        <Route path="/myFights" element={<MyFights setLogged={setLogged} />} />
         <Route
           path="/ranking"
           element={<RankingPage setLogged={setLogged} />}

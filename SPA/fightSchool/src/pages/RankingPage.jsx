@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "@/Components/ui/button";
+import { Button } from "@/components/ui/Button";
 import RankingRepository from "../repositories/RankingRepository"; // Altere para RankingRepository
 import FightList from "../Components/FightList";
 import NewFight from "./NewFight";

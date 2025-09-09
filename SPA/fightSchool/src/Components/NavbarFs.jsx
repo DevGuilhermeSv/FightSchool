@@ -23,7 +23,10 @@ function NavbarFs({ setLogged }) {
   function FightPageHandler() {
     navigate("/fightPage");
   }
-  function MyFightsHandler(){
+  function MonthFightPageHandler() {
+    navigate("/monthFightPage");
+  }
+  function MyFightsHandler() {
     navigate("/myFights");
   }
 
@@ -49,7 +52,9 @@ function NavbarFs({ setLogged }) {
           <DropdownHeader>
             <span className="block text-sm font-medium">Usuário</span>
           </DropdownHeader>
-          <DropdownItem onClick={() => MyFightsHandler()} >Minhas Lutas</DropdownItem>
+          <DropdownItem onClick={() => MyFightsHandler()}>
+            Minhas Lutas
+          </DropdownItem>
 
           <DropdownItem onClick={() => setLogged(false)}>Sair</DropdownItem>
         </Dropdown>
@@ -73,10 +78,17 @@ function NavbarFs({ setLogged }) {
         </NavbarLink>
         <NavbarLink
           href="#"
-          onClick={() => FightPageHandler()}
+          onClick={() => MonthFightPageHandler()}
           className="text-white hover:text-yellow-300"
         >
           Lutas do Mês
+        </NavbarLink>
+        <NavbarLink
+          href="#"
+          onClick={() => FightPageHandler()}
+          className="text-white hover:text-yellow-300"
+        >
+          Buscar Lutas
         </NavbarLink>
       </NavbarCollapse>
     </Navbar>

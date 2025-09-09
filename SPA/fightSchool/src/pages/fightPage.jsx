@@ -3,6 +3,9 @@ import MatchRepository from "../repositories/MatchRepository";
 import FightList from "../Components/FightList";
 import { Select, SelectItem } from "../Components/ui/select";
 import { FightStatusMap } from "../utils/FightStatusMap";
+import { Button } from "../components/ui/Button";
+import { HelperText } from "flowbite-react";
+import { Input } from "../Components/ui/input";
 
 const months = [
   { value: "", label: "Todos" },
@@ -20,37 +23,32 @@ const months = [
   { value: "12", label: "Dezembro" },
 ];
 
-function getYears(matches) {
-  const years = matches
-    .map((m) => new Date(m.date).getFullYear())
-    .filter((y, i, arr) => arr.indexOf(y) === i);
-  years.sort((a, b) => b - a);
-  return ["", ...years];
-}
-
 function FightPage() {
   const [matches, setMatches] = useState([]);
   const [monthFilter, setMonthFilter] = useState("");
   const [yearFilter, setYearFilter] = useState("");
-  const [fightStatus, setFightStatus] = useState(""); // Adicione se quiser filtrar por status
+  const [fightStatus, setFightStatus] = useState("");
+  const [errorYear, setErrorYear] = useState("");
+  const [errorMonth, setErrorMonth] = useState("");
+  // const [errorStatus, setErrorStatus] = useState("");
 
-  const fetchMatches = async () => {
-    let minDate, maxDate;
-    if (monthFilter && yearFilter) {
-      minDate = new Date(Number(yearFilter), Number(monthFilter) - 1, 1);
-      maxDate = new Date(
-        Number(yearFilter),
-        Number(monthFilter),
-        0,
-        23,
-        59,
-        59,
-        999
-      );
-    } else if (yearFilter) {
-      minDate = new Date(Number(yearFilter), 0, 1);
-      maxDate = new Date(Number(yearFilter), 11, 31, 23, 59, 59, 999);
+  const fetchMatches = async (year, month) => {
+    console.log({ year, month });
+    setErrorYear("");
+    setErrorMonth("");
+    // setErrorStatus("");
+
+    if (!year) {
+      setErrorYear("Selecione o ano.");
     }
+    if (!month) {
+      setErrorMonth("Selecione o mês.");
+    }
+
+    let minDate, maxDate;
+    minDate = new Date(Number(year), Number(month) - 1, 1);
+    maxDate = new Date(Number(year), Number(month), 0, 23, 59, 59, 999);
+
     const res = await MatchRepository.getAllMatches({
       fightStatus,
       minDate: minDate ? minDate.toISOString() : undefined,
@@ -60,52 +58,72 @@ function FightPage() {
   };
 
   useEffect(() => {
-    fetchMatches();
+    const now = new Date();
+    fetchMatches(now.getFullYear(), now.getMonth() + 1);
     // eslint-disable-next-line
-  }, [monthFilter, yearFilter, fightStatus]);
-
-  const years = getYears(matches);
+  }, []);
 
   return (
     <div className="w-[95%] md:w-2/3">
       <h4 className=" text-2xl md:text-5xl font-bebas-neue text-center  m-4">
-        Proximas Lutas do mês
+        Buscador de lutas
       </h4>
       <div className="flex gap-2 mb-4 text-preto">
-        <Select
-          onChange={(e) => {
-            console.log(e);
-            setMonthFilter(e);
-          }}
-          value={monthFilter}
-        >
-          {months.map((m) => (
-            <SelectItem key={m.value} value={m.value}>
-              {m.label}
-            </SelectItem>
-          ))}
-        </Select>
-        <Select onChange={(e) => setYearFilter(e)} value={yearFilter}>
-          <SelectItem value="">Todos</SelectItem>
-          {years.slice(1).map((y) => (
-            <SelectItem key={y} value={y}>
-              {y}
-            </SelectItem>
-          ))}
-        </Select>
-        {/* Exemplo de filtro de status */}
-        {
-          <Select onChange={(e) => setFightStatus(e)} value={fightStatus}>
+        <div className="flex flex-col  w-full">
+          <Input
+            placeholder="Ano"
+            value={yearFilter}
+            onChange={(e) => setYearFilter(e.target.value)}
+            required
+          />
+          {errorYear && (
+            <span className="text-red-500 text-xs mt-1">{errorYear}</span>
+          )}
+        </div>
+        <div className="flex flex-col  w-full">
+          <Select
+            onChange={(e) => setMonthFilter(e)}
+            value={monthFilter}
+            required
+          >
+            <SelectItem value="">Mês</SelectItem>
+            {months.map((m) => (
+              <SelectItem key={m.value} value={m.value}>
+                {m.label}
+              </SelectItem>
+            ))}
+          </Select>
+          {errorMonth && (
+            <span className="text-red-500 text-xs mt-1">{errorMonth}</span>
+          )}
+        </div>
+        <div className="flex flex-col  w-full">
+          <Select
+            onChange={(e) => setFightStatus(e)}
+            value={fightStatus}
+            required
+          >
+            <SelectItem value="">Status</SelectItem>
             {Object.entries(FightStatusMap).map(([value, label]) => (
               <SelectItem key={value} value={value}>
                 {label}
               </SelectItem>
             ))}
-            <SelectItem value="">Todos Status</SelectItem>
           </Select>
-        }
+          {/* {errorStatus && (
+            <span className="text-red-500 text-xs mt-1">{errorStatus}</span>
+          )} */}
+        </div>
+        <Button onClick={() => fetchMatches(yearFilter, monthFilter)}>
+          Filtrar
+        </Button>
       </div>
-      <FightList matches={matches} />
+      {!matches.length && (
+        <div className="text-red-500 mb-4 text-center">
+          Nenhuma luta foi encontrada.
+        </div>
+      )}
+      {<FightList matches={matches} />}
     </div>
   );
 }
