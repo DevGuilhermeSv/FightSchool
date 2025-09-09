@@ -7,7 +7,7 @@ import BaseComponent from "../Components/ui/BaseComponent";
 import UserRepository from "../repositories/UserRepository";
 import MatchRepository from "../repositories/MatchRepository";
 import { useNavigate } from "react-router-dom";
-
+import { Label } from "flowbite-react";
 const FightStatusMap = {
   0: "Agendado",
   1: "Em andamento",
@@ -16,9 +16,6 @@ const FightStatusMap = {
 
 function NewFight({ logged }) {
   const navigate = useNavigate();
-  console.log("NewFight component rendered");
-
-  console.log(logged);
 
   const [newMatch, setNewMatch] = useState({ status: 0 });
 
@@ -42,7 +39,6 @@ function NewFight({ logged }) {
 
   const createMatch = async () => {
     try {
-      console.log(newMatch);
       await MatchRepository.createMatch(newMatch);
       alert("Luta criada com sucesso!");
       setNewMatch({});
@@ -54,40 +50,48 @@ function NewFight({ logged }) {
   };
 
   return (
-    <BaseComponent className="w-2/3">
-      <h2 className="text-2xl md:text-5xl font-bebas-neue text-center">
+    <div className="w-[95%] md:w-2/3">
+      <h4 className=" text-2xl md:text-5xl font-bebas-neue text-center  m-4">
         Nova Luta
-      </h2>
+      </h4>
+      <BaseComponent>
+        <Label htmlFor="fighterOneId">Lutador 1</Label>
 
-      <Select
-        value={newMatch.fighterOneId || ""}
-        onChange={(v) => setNewMatch({ ...newMatch, fighterOneId: v })}
-      >
-        {users.map((u) => (
-          <SelectItem key={u.id} value={u.id}>
-            {u.name} ({u.userName})
-          </SelectItem>
-        ))}
-      </Select>
+        <Select
+          id="fighterOneId"
+          value={newMatch.fighterOneId || ""}
+          onChange={(v) => setNewMatch({ ...newMatch, fighterOneId: v })}
+        >
+          {users.map((u) => (
+            <SelectItem key={u.id} value={u.id}>
+              {u.name} ({u.userName})
+            </SelectItem>
+          ))}
+        </Select>
 
-      <Select
-        value={newMatch.fighterTwoId || ""}
-        onChange={(v) => setNewMatch({ ...newMatch, fighterTwoId: v })}
-      >
-        {users.map((u) => (
-          <SelectItem key={u.id} value={u.id}>
-            {u.name} ({u.userName})
-          </SelectItem>
-        ))}
-      </Select>
+        <Label htmlFor="fighterTwoId">Lutador 2</Label>
+        <Select
+          id="fighterTwoId"
+          value={newMatch.fighterTwoId || ""}
+          onChange={(v) => setNewMatch({ ...newMatch, fighterTwoId: v })}
+        >
+          {users.map((u) => (
+            <SelectItem key={u.id} value={u.id}>
+              {u.name} ({u.userName})
+            </SelectItem>
+          ))}
+        </Select>
+        <Label htmlFor="date">Data</Label>
 
-      <Input
-        type="datetime-local"
-        onChange={(e) => setNewMatch({ ...newMatch, date: e.target.value })}
-      />
+        <Input
+          id="date"
+          type="datetime-local"
+          onChange={(e) => setNewMatch({ ...newMatch, date: e.target.value })}
+        />
 
-      <Button onClick={createMatch}>Agendar Luta</Button>
-    </BaseComponent>
+        <Button onClick={createMatch}>Agendar Luta</Button>
+      </BaseComponent>
+    </div>
   );
 }
 export default NewFight;
