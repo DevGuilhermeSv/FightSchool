@@ -94,6 +94,11 @@ namespace Application.Services
             _matchRepository.SaveChanges();
 
         }
+
+        public Task UpdateExpiredMatchAsync()
+        {
+            return _matchRepository.UpdateExpiredMatchsAsync();
+        }
         
         
     }

@@ -11,5 +11,7 @@ namespace Application.Interfaces
         Task<IEnumerable<MatchResponse>> GetMatchesByUserIdAsync(Guid userId);
         Task<Guid> CreateMatchAsync(CreateMatch match);
         Task UpdateMatchAsync(UpdateMatch match);
+        Task UpdateExpiredMatchAsync();
+
     }
 }

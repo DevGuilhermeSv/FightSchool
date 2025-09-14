@@ -138,5 +138,6 @@ public enum FightStatus
 {
     Pendente,
     Finalizado,
-    Cancelado
+    Cancelado,
+    Expirado
 }

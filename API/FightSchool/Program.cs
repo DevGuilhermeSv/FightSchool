@@ -3,6 +3,7 @@ using Application.Interfaces;
 using Application.Services;
 using Domain.Entities;
 using Domain.Interfaces;
+using FightSchool.BackgroundService;
 using Infrastructure.DbContext;
 using Infrastructure.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -102,6 +103,8 @@ builder.Services.AddSwaggerGen(c =>
        
     });
 });
+builder.Services.AddHostedService<UpdateFightStatusWorker>();
+
 
 var app = builder.Build();
 
