@@ -139,5 +139,6 @@ public enum FightStatus
     Pendente,
     Finalizado,
     Cancelado,
-    Expirado
+    Expirado,
+    Confirmado
 }
