@@ -24,7 +24,7 @@ namespace Infrastructure.Repository
         public async Task UpdateExpiredMatchsAsync()
         {
             await DbSet
-                .Where(m => m.Date < DateTime.UtcNow && m.Status == FightStatus.Pendente.ToString())
+                .Where(m => m.Date < DateTime.UtcNow && ( m.Status == FightStatus.Pendente.ToString() || m.Status == FightStatus.Confirmado.ToString()) )
                 .ExecuteUpdateAsync(setters => setters
                     .SetProperty(m => m.Status, m => "Expirado"));
   
